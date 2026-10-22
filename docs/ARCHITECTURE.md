@@ -2,7 +2,7 @@
 
 React 19 + TypeScript + Vite. Browser-local state, no backend or credentials. Lucide provides bundled icons; fonts are self-hosted. Typed fixtures and pure functions own all eligibility, discount and contribution logic. React presentation never recalculates competing arithmetic.
 
-Native dialogs provide focus containment and return focus. IntersectionObserver synchronizes chapter progress. Native details expose evidence. The responsive comparison hides one view only at mobile widths; the shared state is retained while switching. Reduced-motion preferences remove smooth scroll and nonessential animation.
+Native dialogs provide focus containment and return focus. IntersectionObserver synchronizes chapter progress. Native details expose evidence. Five synchronized chapter rows share a persistent two-pane header and one cart. The responsive comparison hides one view only at phone widths; state is retained while switching. Existing, Proposal and shell tokens have separate namespaces. Reduced-motion preferences remove smooth scroll and nonessential animation.
 
 ## Hosting inspection
 

@@ -12,3 +12,14 @@ Local verification completed October 21, 2026 (Pacific), Node 22.19.0.
 - All requested source pages read through the research browser; no real merchant checkout tested. Links remain external navigation rather than claims that their offers currently work.
 
 GitHub Actions repeats unit tests, Playwright checks and the production build before publishing. Production URL is verified separately after a successful deployment.
+
+## Focused five-chapter revision
+
+- TypeScript + Vite build passed; unchanged eligibility/arithmetic suite: 14 passing tests.
+- Revised Playwright suite: 6 passing tests across 1440, 1280, 768 and 390px.
+- Checked merchant switching, shared eligibility, missing-information handling, both manual and assisted checkout routes, forced rejection and retry, final payable amount, privacy preferences, calculator, Sources/agent disclosure and full restart.
+- Native evidence dialog opens, traps keyboard interaction, closes with Escape, and restores focus to the opener.
+- Automated WCAG A/AA scans: zero detected violations on desktop and both phone views; reduced-motion and keyboard chapter navigation passed.
+- No detected page errors or horizontal page overflow in the tested chapters. Persistent heading labels checked in viewport on desktop/tablet.
+- Captured first-viewport, full-page and all five chapter screenshots at every required width, plus phone Existing and evidence-drawer captures. Reviewed composition and iterated on alignment, readable controls and mobile access to calculator inputs.
+- Selected before/after captures and decisions: [visual review](visual-review/README.md).

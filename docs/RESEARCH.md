@@ -17,7 +17,7 @@ Observed October 21, 2026, America/Los_Angeles. Public pages were inspected usin
 
 ### Visual system
 
-Home computed body: DM Sans. Merchant body: Figtree. Merchant page screenshot shows black background, charcoal cards, white typography, vivid green (#03ff88) CTAs and italic SimplyCodes wordmark. This site preserves those cues in the Today panels, with a light editorial presentation shell and quiet green Proposal surfaces. It deliberately does not claim pixel-perfect reproduction. Fonts are self-hosted via fontsource packages. No merchant logos or screenshots are redistributed.
+Home computed body: DM Sans. Merchant body: Figtree. Merchant page screenshot shows black background, charcoal cards, white typography, vivid green (#03ff88) CTAs and italic SimplyCodes wordmark. The initial site used those cues in Today panels with a light editorial shell. The focused revision uses consistent charcoal surfaces, retaining distinct scoped Existing and Proposal palettes. It deliberately does not claim pixel-perfect reproduction. Fonts are self-hosted via fontsource packages. No merchant logos or screenshots are redistributed.
 
 ### Agent / MCP prior work and availability
 
@@ -44,3 +44,9 @@ The Vistaprint and Nike interactive code strings, percentage values, dates, test
 All experiment inputs are assumptions. No conversion, commission uplift or company business result is measured here. Public company-scale statistics are deliberately omitted from the calculator. Revenue remains outside coupon ranking.
 
 No analytics, accounts, trackers, remote font requests, payment requests or actual extension permissions. Toggles are local state specimens. Production permission and retention language would require policy and legal review.
+
+## Focused revision research
+
+Revisited the Vistaprint merchant page during the revision on October 21, 2026 (Pacific). After an initial Cloudflare challenge, the page rendered successfully. Computed font remained Figtree and the primary action color was rgb(3,255,136). The public top pick still displayed 15% off, Health 95%, last used information and expandable verification activity. This supports dark neutral cards, green actions and evidence affordances; it does not establish a new checkout observation.
+
+The revised comparison uses the same illustrative offer set and does not claim its exact order is the live ranking. Per-card cart checks are local overlays to make the comparison inspectable. The manual checkout route is labeled as such and explicitly credits the existing extension’s assisted application. Session attempt counts are actual local clicks, not measured time savings or claims about real shopper effort.

@@ -1,8 +1,8 @@
 # SimplyCodes — From Verification to Decision
 
-**Less reading. More saving.** An independent, interactive product thinking exploration by [Jayasri Guthula](https://jayasrisng.com/).
+[Open the live workspace](https://jayasrisng.com/simplycodes-exploration/). An independent, interactive product thinking exploration by [Jayasri Guthula](https://jayasrisng.com/).
 
-Nine chapters connect observed merchant-page patterns to cart eligibility, progressive evidence, contextual privacy, checkout recovery, agent-readable verification and a measurable revenue hypothesis. The desktop comparison shares one cart across both panels; mobile includes a Today / My Proposal switch.
+Five chapters compare coupon discovery, cart eligibility, trust and privacy, checkout recovery, and the revenue hypothesis. A persistent dark workspace keeps Existing SimplyCodes and My Proposal side by side on desktop; phones use an Existing / Proposal switch. Both views share the same cart and pure rules engine.
 
 ## Run
 
@@ -17,7 +17,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Playwright starts its own local Vite server unless an existing one is available. Tests cover 1440, 1280, 768 and 390px, cart rules, merchant switching, evidence dialogs, privacy state, checkout success/rejection, calculator arithmetic, mobile switching, keyboard and reduced motion. Screenshots and reports are generated under ignored test-results.
+Playwright starts its own local Vite server unless an existing one is available. Tests cover 1440, 1280, 768 and 390px, cart rules, merchant switching, evidence dialogs and focus restoration, privacy state, both checkout routes, rejection recovery, calculator arithmetic, mobile switching, keyboard and reduced motion. Full-page and chapter screenshots are captured at every required width. Screenshots and reports are generated under ignored test-results. Selected before/after captures and the visual review are in docs/visual-review.
 
 ## Read the reasoning
 

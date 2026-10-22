@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ShieldCheck, ChevronRight, Copy, Check } from "lucide-react";
-import { money, totals, type Offer } from "./engine";
-export function VerificationBadge({ state }: { state: string }) {
+import { money, totals, type Offer, type VerificationState } from "./engine";
+export function VerificationBadge({ state }: { state: VerificationState }) {
   return (
     <span
       className={
@@ -13,8 +13,8 @@ export function VerificationBadge({ state }: { state: string }) {
             : "neutral")
       }
     >
-      <ShieldCheck size={12} />
-      {state}
+      <ShieldCheck size={13} />
+      {state === "CONDITIONALLY APPLICABLE" ? "ELIGIBILITY NEEDED" : state}
     </span>
   );
 }
@@ -29,69 +29,66 @@ export function Comparison({
 }) {
   return (
     <div className={"comparison show-" + view}>
-      <div className="pane today">
-        <div className="pane-label">
-          <span className="dot" /> TODAY <span>Evidence to interpret</span>
-        </div>
-        {left}
-      </div>
-      <div className="pane proposal">
-        <div className="pane-label">
-          <span className="dot" /> MY PROPOSAL <span>A decision to act on</span>
-        </div>
-        {right}
-      </div>
+      <div className="pane existing">{left}</div>
+      <div className="pane proposal">{right}</div>
     </div>
+  );
+}
+export function conditions(o: Offer) {
+  return (
+    [
+      o.minimum ? `$${o.minimum}+` : null,
+      o.newOnly ? "New customers" : null,
+      o.student ? "Eligible students" : null,
+      o.category || null,
+      o.fullPrice ? "Full-price only" : null,
+    ]
+      .filter(Boolean)
+      .join(" · ") || "Selected styles; terms unconfirmed"
   );
 }
 export function CouponCard({
   offer: o,
   selected,
-  interactive = true,
   onSelect,
   onEvidence,
+  cartState,
 }: {
   offer: Offer;
   selected: boolean;
-  interactive?: boolean;
   onSelect: (o: Offer) => void;
   onEvidence: (o: Offer) => void;
+  cartState?: VerificationState;
 }) {
   return (
     <article className="coupon">
-      <div className="coupon-percent">
-        {o.percent}%<small>OFF</small>
-      </div>
-      <div className="coupon-info">
+      <div className="coupon-top">
+        <strong>
+          {o.percent}% <span>off</span>
+        </strong>
         <VerificationBadge state={o.verified ? "VERIFIED" : "UNVERIFIED"} />
-        <h4>{o.title}</h4>
-        <p>
-          {o.minimum ? `Orders $${o.minimum}+ · ` : ""}
-          {o.newOnly
-            ? "New customers"
-            : o.student
-              ? "Student eligibility required"
-              : o.fullPrice
-                ? "Full-price items only"
-                : "See conditions"}
-        </p>
-        <p className="fixture-activity">
-          Fixture evidence: {o.passes}/{o.tests} test cases ·{" "}
-          {o.tested.slice(5, 10)} UTC
-        </p>
-        <button className="text-button" onClick={() => onEvidence(o)}>
-          Inspect evidence <ChevronRight size={13} />
-        </button>
       </div>
-      {interactive && (
+      <h3>{o.title}</h3>
+      <p>{conditions(o)}</p>
+      <div className="coupon-bottom">
+        <button className="text-button" onClick={() => onEvidence(o)}>
+          Evidence <ChevronRight size={14} />
+        </button>
         <button
           className={"code-button " + (selected ? "chosen" : "")}
-          onClick={() => onSelect(o)}
           aria-label={"Select " + o.code}
+          aria-pressed={selected}
+          onClick={() => onSelect(o)}
         >
-          {o.code}
-          {selected ? <Check size={13} /> : <Copy size={13} />}
+          <code>{o.code}</code>
+          {selected ? <Check size={14} /> : <Copy size={14} />}
         </button>
+      </div>
+      {cartState && (
+        <div className="cart-status">
+          <span>Your cart</span>
+          <VerificationBadge state={cartState} />
+        </div>
       )}
     </article>
   );
@@ -105,28 +102,31 @@ export function Receipt({
 }) {
   const t = totals(amount, percent);
   return (
-    <div className="receipt-block">
-      <dl className="receipt">
-        <div>
-          <dt>Subtotal</dt>
-          <dd>{money(t.subtotal)}</dd>
-        </div>
-        <div className={percent ? "discount" : ""}>
-          <dt>Eligible discount</dt>
-          <dd>−{money(t.discount)}</dd>
-        </div>
-        <div>
-          <dt>Shipping</dt>
-          <dd>{t.shipping ? money(t.shipping) : "Free"}</dd>
-        </div>
-        <div className="total">
-          <dt>Payable total</dt>
-          <dd>{money(t.total)}</dd>
-        </div>
-      </dl>
-      <small className="receipt-note">
-        USD · tax not modeled · fictional checkout
-      </small>
+    <dl className="receipt">
+      <div>
+        <dt>Subtotal</dt>
+        <dd>{money(t.subtotal)}</dd>
+      </div>
+      <div className={percent ? "discount" : ""}>
+        <dt>Discount</dt>
+        <dd>−{money(t.discount)}</dd>
+      </div>
+      <div>
+        <dt>Shipping</dt>
+        <dd>{t.shipping ? money(t.shipping) : "Free"}</dd>
+      </div>
+      <div className="total">
+        <dt>Payable total</dt>
+        <dd>{money(t.total)}</dd>
+      </div>
+    </dl>
+  );
+}
+export function EmptyState({ children }: { children: ReactNode }) {
+  return (
+    <div className="empty-state">
+      <ShieldCheck size={25} />
+      {children}
     </div>
   );
 }
