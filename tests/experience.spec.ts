@@ -383,3 +383,25 @@ test("first viewport explains the decision and reacts to customer eligibility",a
   await first.getByRole("button",{name:"Returning customer",exact:true}).click();
   await expect(first.locator(".proposal .saving")).toContainText("$30.00");
 });
+
+test("contextual hints clear after use and the closing thesis appears", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const first = page.locator("#chapter-0");
+  const newCustomer = first.getByRole("button", { name: "New customer" });
+  await expect(newCustomer).toHaveClass(/guided-action/);
+  await newCustomer.click();
+  await expect(newCustomer).not.toHaveClass(/guided-action/);
+  await page.getByRole("navigation").getByRole("button", { name: /02 Trust/ }).click();
+  const evidence = page.locator("#chapter-2 .proposal").getByRole("button", { name: "View full evidence" });
+  await expect(evidence).toHaveClass(/guided-action/);
+  await evidence.click();
+  await expect(page.getByRole("dialog", { name: /WELCOME40|PRINT25/ })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(evidence).not.toHaveClass(/guided-action/);
+  await page.getByRole("navigation").getByRole("button", { name: /05 What Comes Next/ }).click();
+  const closing = page.locator("#chapter-5 .vision-story");
+  await expect(closing.getByRole("heading", { name: "Before AI can shop for you, it has to earn your trust." })).toBeVisible();
+  await expect(closing).toContainText("SimplyCodes earns trust in the recommendation.");
+  await expect(closing).toContainText("That's the transition I'd love to help build.");
+});

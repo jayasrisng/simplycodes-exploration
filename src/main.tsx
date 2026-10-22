@@ -78,6 +78,8 @@ function App() {
     [leftAttempts, setLeftAttempts] = useState(0),
     [rightAttempts, setRightAttempts] = useState(0),
     [complete, setComplete] = useState(false),
+    [triedCustomer, setTriedCustomer] = useState(false),
+    [readEvidence, setReadEvidence] = useState(false),
     [resetEpoch, setResetEpoch] = useState(0);
   const evidenceRef = useRef<HTMLDialogElement>(null),
     sourceRef = useRef<HTMLDialogElement>(null);
@@ -159,6 +161,8 @@ function App() {
     setLeftAttempts(0);
     setRightAttempts(0);
     setComplete(false);
+    setTriedCustomer(false);
+    setReadEvidence(false);
     setResetEpoch((x) => x + 1);
     setActive(0);
     window.scrollTo({
@@ -408,16 +412,20 @@ function App() {
             )}
           </div>
           <section id="chapter-0" data-chapter="0">
-            {strip(0, "Find the best supported saving.")}
+            {strip(0, "One cart. Two ways to choose.")}
             <div className="first-task">
               <div>
                 <span className="overline">START HERE</span>
                 <h3>You're shopping at {cart.merchant}. Which code works for a {money(cart.amount)} cart?</h3>
-                <p>Switch customer type. Watch both sides respond.</p>
+                <p className="task-instruction" aria-live="polite">
+                  {triedCustomer
+                    ? "The best match changes with your eligibility."
+                    : "Try “New customer” to see how the recommendation changes."}
+                </p>
               </div>
               <div className="first-task-controls" role="group" aria-label="Customer type">
-                <button aria-pressed={cart.customer === "returning"} onClick={() => update({ customer: "returning" })}>Returning customer</button>
-                <button aria-pressed={cart.customer === "new"} onClick={() => update({ customer: "new" })}>New customer</button>
+                <button aria-pressed={cart.customer === "returning"} onClick={() => { setTriedCustomer(true); update({ customer: "returning" }); }}>Returning customer</button>
+                <button className={!triedCustomer && active === 0 ? "guided-action" : undefined} aria-pressed={cart.customer === "new"} onClick={() => { setTriedCustomer(true); update({ customer: "new" }); }}>New customer <ArrowRight size={13} /></button>
               </div>
             </div>
             <div className="merchant-toolbar">
@@ -459,7 +467,7 @@ function App() {
                   </span>
                   <div>
                     <h3>{cart.merchant} coupons</h3>
-                    <p>Codes, conditions & verification</p>
+                    <p>Codes and restrictions</p>
                   </div>
                   <button
                     className="icon-button"
@@ -471,7 +479,7 @@ function App() {
                 </div>
                 <div className="list-heading">
                   <b>Top codes</b>
-                  <span>Codes & conditions</span>
+
                 </div>
                 {merchantOffers.slice(0, 3).map((o) => card(o))}
               </>,
@@ -498,7 +506,7 @@ function App() {
             )}
           </section>
           <section id="chapter-1" data-chapter="1">
-            {strip(1, "A verified code also needs to fit this cart.")}
+            {strip(1, "Adjust the cart. See which codes qualify.")}
             <div className="cart-controls">
               <label>
                 Cart amount <strong>{money(cart.amount)}</strong>
@@ -593,7 +601,7 @@ function App() {
             )}
           </section>
           <section id="chapter-2" data-chapter="2">
-            {strip(2, "One clear verdict. Full evidence one click away.")}
+            {strip(2, "View the proof behind the decision.")}
             {pair(
               <>
                 <div className="list-heading">
@@ -653,8 +661,8 @@ function App() {
                   />
                   <h3>
                     {best
-                      ? "A supported match. Evidence included."
-                      : "No supported code. No false promise."}
+                      ? "This code matches your cart."
+                      : "No verified match found."}
                   </h3>
                   <p>
                     {best
@@ -662,8 +670,8 @@ function App() {
                       : "There’s no currently supported offer in this set for your cart."}
                   </p>
                   <button
-                    className="outline full"
-                    onClick={() => setDrawer(best || offers[4])}
+                    className={"outline full " + (active === 2 && !readEvidence ? "guided-action" : "")}
+                    onClick={() => { setReadEvidence(true); setDrawer(best || offers[4]); }}
                   >
                     View full evidence <ChevronRight size={15} />
                   </button>
@@ -674,8 +682,7 @@ function App() {
                     <h3>Only what helps check the fit.</h3>
                   </div>
                   <p>
-                    Cart amount, category and eligibility. This exploration
-                    keeps inputs in memory.
+                    Cart details stay in this browser session. Nothing is shared here.
                   </p>
                   {toggle("Cart sharing permission", permission, setPermission)}
                   {toggle("Optional feedback sharing", sharing, setSharing)}
@@ -692,7 +699,7 @@ function App() {
           </section>
           <section id="chapter-3" data-chapter="3">
             {strip(3,
-              "Fewer attempts. Clear results and recovery.",
+              "Try the eligible code. See the total update.",
             )}
             <div className="checkout-toolbar">
               <span>
@@ -791,7 +798,7 @@ function App() {
                   )}
                 </div>
                 <button
-                  className="primary full"
+                  className={"primary full " + (active === 3 && rightAttempts === 0 && best ? "guided-action" : "")}
                   disabled={!best || rightResult === "applied"}
                   onClick={() => {
                     setRightAttempts((n) => n + 1);
@@ -852,12 +859,12 @@ function App() {
           </section>
           <section id="chapter-4" data-chapter="4">
             {strip(4,
-              "Make verified answers useful across search and AI.",
+              "Explore answers built for search and AI.",
             )}
-            <Discovery key={resetEpoch} />
+            <Discovery key={resetEpoch} active={active === 4} />
           </section>
           <section id="chapter-5" data-chapter="5">
-            {strip(5, "Earn trust in small decisions before larger actions.")}
+            {strip(5, "From reliable coupons to trusted agentic shopping.")}
             <Evolution
               key={resetEpoch}
               cart={cart}

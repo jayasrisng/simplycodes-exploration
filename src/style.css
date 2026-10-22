@@ -2409,3 +2409,27 @@ pre {
 .vision-closing strong{color:#f0faf3;font-weight:600}
 @media(max-width:1100px){.first-task{flex-direction:column;align-items:flex-start}}
 @media(max-width:767px){.first-task{padding:18px}.first-task-controls{width:100%}.first-task-controls button{flex:1}.vision-story{padding:24px 0 8px}}
+
+/* Contextual highlights only: animated twice, removed after interaction. */
+.guided-action {
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(3,255,136,.68), 0 0 17px rgba(3,255,136,.2);
+  animation: guided-pulse 2.4s ease-in-out 2;
+}
+.guided-action:hover, .guided-action:focus-visible {
+  box-shadow: 0 0 0 2px rgba(3,255,136,.9), 0 0 24px rgba(3,255,136,.3);
+}
+@keyframes guided-pulse {
+  0%,100% { box-shadow: 0 0 0 1px rgba(3,255,136,.55),0 0 12px rgba(3,255,136,.1); }
+  50% { box-shadow: 0 0 0 2px rgba(3,255,136,.95),0 0 24px rgba(3,255,136,.29); }
+}
+.first-task-controls button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.vision-story { max-width: 850px; padding-top: 34px; }
+.vision-story > h2 { font-size: clamp(28px,3.2vw,45px); line-height:1.17; letter-spacing:-1.4px; font-weight:600; max-width:760px; margin:12px 0 27px; color:#f0fcf3; }
+.vision-copy { max-width:760px; }
+.vision-copy p { font-size:15px; line-height:1.75; color:#c6d8cb; margin:0 0 18px; }
+.vision-copy .vision-thesis { border-left:3px solid #03ff88; padding:15px 19px; margin:26px 0 19px; background:#1a2f21; border-radius:0 6px 6px 0; color:#eefef2; font-size:18px; line-height:1.55; }
+.vision-copy .vision-thesis strong { font-weight:600; }
+.vision-back { margin-top:12px; }
+@media(prefers-reduced-motion: reduce) { .guided-action { animation:none !important; } }
+@media(max-width:767px) { .vision-story > h2 { font-size:29px; letter-spacing:-1px; } .vision-copy p { font-size:14px; } .vision-copy .vision-thesis { font-size:16px; } }

@@ -30,14 +30,15 @@ const seoFields = [
   "Restrictions",
   "Structured breadcrumbs",
 ];
-export function Discovery() {
+export function Discovery({ active = false }: { active?: boolean }) {
   const [mode, setMode] = useState(0),
     [verdict, setVerdict] = useState<PromoVerdict>("CONFIDENT_NO"),
     [fields, setFields] = useState(seoFields.map(() => true)),
     [validated, setValidated] = useState(false),
     [step, setStep] = useState(0),
     [student, setStudent] = useState<StudentEligibility>("unknown"),
-    [approved, setApproved] = useState(false);
+    [approved, setApproved] = useState(false),
+    [exploredChannels, setExploredChannels] = useState(false);
   const record = evidenceExample(verdict),
     action = actionFor(record, student);
   useEffect(() => {
@@ -47,6 +48,7 @@ export function Discovery() {
   }, [verdict]);
   const selectTab = (i: number, focus = false) => {
     setMode(i);
+    setExploredChannels(true);
     if (focus) document.getElementById("discovery-tab-" + i)?.focus();
   };
   const keys = (e: KeyboardEvent<HTMLButtonElement>) => {
@@ -110,7 +112,7 @@ export function Discovery() {
   return (
     <div className="discovery overview-surface">
       <div className="discovery-intro">
-        <p>One clear answer, whether someone searches, asks, or delegates.</p>
+        <p>{exploredChannels ? "The same evidence, different entry points." : "Select AI Search to see what a shopper's assistant could answer."}</p>
       </div>
       <div
         className="discovery-tabs"
@@ -125,6 +127,7 @@ export function Discovery() {
             aria-selected={mode === i}
             tabIndex={mode === i ? 0 : -1}
             key={name}
+            className={i === 1 && active && !exploredChannels ? "guided-action" : undefined}
             onClick={() => selectTab(i)}
             onKeyDown={keys}
           >

@@ -82,7 +82,7 @@ export function Evolution({
     <div className="evolution overview-surface">
       <div className="evolution-intro">
         <span className="overline">FROM HELPFUL TO TRUSTED</span>
-        <p>Make the small decisions reliable before asking shoppers to delegate larger ones.</p>
+        <p>Select a step to see how AI earns permission to do more.</p>
       </div>
       <div
         className="evolution-rail"
@@ -227,22 +227,35 @@ export function Evolution({
         </div>
       </div>
       <div className="vision-story">
-        <span className="overline">THE LONGER-TERM OPPORTUNITY</span>
-        <h3>Trust is learned through useful experiences.</h3>
-        <p>
-          Snapchat made AR familiar through Lenses before bringing it into hardware.
-          Shopping can follow a similar path. SimplyCodes first helps people trust
-          a code, then a recommendation for their own cart. Product.ai can build
-          on that familiarity to help shoppers compare, decide and eventually
-          approve purchases. At every step, the evidence and permission to act
-          should be clear.
-        </p>
-        <div className="vision-closing">
-          <strong>From finding a coupon to trusting an agent.</strong>
-          <button className="outline" onClick={onExplore}>
-            Back to the shopping comparison <ArrowRight size={16} />
-          </button>
+        <span className="overline">THE BIGGER PICTURE</span>
+        <h2>Before AI can shop for you, it has to earn your trust.</h2>
+        <div className="vision-copy">
+          <p>People don't come to SimplyCodes to understand coupon verification. They come to save money.</p>
+          <p>
+            My approach starts there: make the best eligible saving obvious,
+            remove unnecessary decisions, and keep the evidence one click away.
+            The goal is to turn more visitors into shoppers who successfully complete purchases.
+          </p>
+          <p>But I see a bigger opportunity.</p>
+          <p>
+            Snapchat made AR familiar through playful filters before introducing products
+            like Specs. It didn't ask people to understand the technology first.
+            It made them comfortable using it.
+          </p>
+          <p>I see a similar path for SimplyCodes and Product.ai.</p>
+          <p>
+            First, shoppers trust AI to find a code. Then to verify it. Then to choose
+            the best option. Eventually, they trust it to complete a purchase within
+            boundaries they've approved.
+          </p>
+          <p className="vision-thesis">
+            <strong>SimplyCodes earns trust in the recommendation. Product.ai can extend that trust into action.</strong>
+          </p>
+          <p>That's the transition I'd love to help build.</p>
         </div>
+        <button className="outline vision-back" onClick={onExplore}>
+          Back to the shopping comparison <ArrowRight size={16} />
+        </button>
       </div>
     </div>
   );
