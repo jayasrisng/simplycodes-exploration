@@ -161,7 +161,13 @@ function App() {
     setLift(2);
     setCompletion(65);
     setCommission(4);
-    jump(0);
+    setActive(0);
+    window.scrollTo({
+      top: 0,
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
   };
   const choose = async (o: Offer) => {
     setSelected(o.id);

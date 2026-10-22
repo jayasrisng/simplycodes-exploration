@@ -149,6 +149,7 @@ for (const width of [1440, 1280, 768, 390]) {
     await page.getByRole("button", { name: "Close sources" }).click();
     {
       await page.getByRole("button", { name: "Restart", exact: true }).click();
+      await expect(page.locator(".merchant-toolbar")).toBeInViewport();
       await expect(page.locator(".calculator-result>strong")).toContainText(
         "$5,200.00",
       );
