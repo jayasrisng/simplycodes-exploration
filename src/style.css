@@ -2433,3 +2433,17 @@ pre {
 .vision-back { margin-top:12px; }
 @media(prefers-reduced-motion: reduce) { .guided-action { animation:none !important; } }
 @media(max-width:767px) { .vision-story > h2 { font-size:29px; letter-spacing:-1px; } .vision-copy p { font-size:14px; } .vision-copy .vision-thesis { font-size:16px; } }
+
+/* Balanced editorial columns, without the 760px cap that truncated the reading area. */
+.vision-story { width: 100%; max-width: none; }
+.vision-story > h2 { max-width: min(100%, 1120px); text-wrap: balance; }
+.vision-copy { width: 100%; max-width: min(100%, 1140px); }
+.vision-copy p { text-wrap: pretty; line-height: 1.7; margin-bottom: 21px; }
+.stage-explanation h3, .stage-explanation p, .tool-card > p { max-width: none; }
+@media (min-width: 1051px) {
+  .chapter-strip p { max-width: none; flex: 1; text-align: right; }
+}
+@media (max-width: 767px) {
+  .vision-story > h2, .vision-copy { max-width: 100%; }
+  .vision-copy p { line-height: 1.65; }
+}

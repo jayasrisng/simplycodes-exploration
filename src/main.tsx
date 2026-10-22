@@ -197,9 +197,9 @@ function App() {
     (!best || best.percent < 30) ? (
       <div className="question">
         <div>
-          <span className="overline">ONE MISSING DETAIL</span>
-          <h3>Eligible for a student discount?</h3>
-          <p>Confirm before considering STUDENT30.</p>
+          <span className="overline">ELIGIBILITY</span>
+          <h3>Student discount eligible?</h3>
+          
         </div>
         <div className="button-row">
           <button onClick={() => update({ student: "yes" })}>Yes</button>
@@ -315,7 +315,7 @@ function App() {
           SimplyCodes
         </a>
         <span className="topbar-title">
-          Independent study · sample shopping interactions
+          From discovery to checkout
         </span>
         <div className="topbar-actions">
           <button className="text-button" onClick={() => setSourcesOpen(true)}>
@@ -327,11 +327,7 @@ function App() {
         <aside>
           <div className="sidebar-intro">
             <span className="overline">THE SHOPPING DECISION</span>
-            <h1>
-              Find the saving.
-              <br />
-              Skip the guesswork.
-            </h1>
+            <h1>Find the saving. Skip the guesswork.</h1>
           </div>
           <nav aria-label="Chapters">
             {chapters.map((name, i) => (
@@ -412,15 +408,15 @@ function App() {
             )}
           </div>
           <section id="chapter-0" data-chapter="0">
-            {strip(0, "One cart. Two ways to choose.")}
+            {strip(0, "Find a code that fits.")}
             <div className="first-task">
               <div>
                 <span className="overline">START HERE</span>
                 <h3>You're shopping at {cart.merchant}. Which code works for a {money(cart.amount)} cart?</h3>
                 <p className="task-instruction" aria-live="polite">
                   {triedCustomer
-                    ? "The best match changes with your eligibility."
-                    : "Try “New customer” to see how the recommendation changes."}
+                    ? "Recommendation updated."
+                    : "Try “New customer” to compare results."}
                 </p>
               </div>
               <div className="first-task-controls" role="group" aria-label="Customer type">
@@ -467,7 +463,7 @@ function App() {
                   </span>
                   <div>
                     <h3>{cart.merchant} coupons</h3>
-                    <p>Codes and restrictions</p>
+                    
                   </div>
                   <button
                     className="icon-button"
@@ -506,7 +502,7 @@ function App() {
             )}
           </section>
           <section id="chapter-1" data-chapter="1">
-            {strip(1, "Adjust the cart. See which codes qualify.")}
+            {strip(1, "Change the cart. Compare eligible codes.")}
             <div className="cart-controls">
               <label>
                 Cart amount <strong>{money(cart.amount)}</strong>
@@ -574,7 +570,7 @@ function App() {
               <>
                 <div className="list-heading">
                   <b>Compare the conditions</b>
-                  <span>Code-by-code eligibility</span>
+                  
                 </div>
                 {merchantOffers.map((o) => card(o, true))}
               </>,
@@ -601,7 +597,7 @@ function App() {
             )}
           </section>
           <section id="chapter-2" data-chapter="2">
-            {strip(2, "View the proof behind the decision.")}
+            {strip(2, "Check the evidence behind the result.")}
             {pair(
               <>
                 <div className="list-heading">
@@ -641,8 +637,7 @@ function App() {
                   <LockKeyhole size={20} />
                   <h3>Published privacy commitments</h3>
                   <p>
-                    Checkout-only activation. No browsing-history tracking or
-                    personal profiling. Merchant-funded commissions.
+                    Checkout-only activation and published privacy controls.
                   </p>
                   <a
                     href="https://simplycodes.com/privacy"
@@ -667,7 +662,7 @@ function App() {
                   <p>
                     {best
                       ? `${best.code} · ${conditions(best)}`
-                      : "There’s no currently supported offer in this set for your cart."}
+                      : "No code meets these conditions."}
                   </p>
                   <button
                     className={"outline full " + (active === 2 && !readEvidence ? "guided-action" : "")}
@@ -679,10 +674,10 @@ function App() {
                 <div className="privacy-card">
                   <div className="privacy-title">
                     <LockKeyhole size={18} />
-                    <h3>Only what helps check the fit.</h3>
+                    <h3>Privacy controls</h3>
                   </div>
                   <p>
-                    Cart details stay in this browser session. Nothing is shared here.
+                    Cart settings stay in this session.
                   </p>
                   {toggle("Cart sharing permission", permission, setPermission)}
                   {toggle("Optional feedback sharing", sharing, setSharing)}
@@ -721,7 +716,7 @@ function App() {
                   <span>{leftAttempts} attempts this session</span>
                 </div>
                 <p className="route-note">
-                  Manual route. The existing extension also assists checkout.
+                  The existing extension can also apply codes.
                 </p>
                 <label>
                   Coupon
@@ -825,7 +820,7 @@ function App() {
                     ? `Saved ${money(rightPrice.discount)}. Total updated.`
                     : rightResult === "rejected"
                       ? "Merchant rejected this attempt. No discount counted."
-                      : "A cart match is a reason to try, not a guarantee."}
+                      : "Ready to try. Merchant acceptance can vary."}
                 </div>
                 {rightResult === "rejected" && (
                   <button
@@ -910,10 +905,10 @@ function App() {
           <>
             <h2 id="evidence-title">{drawer.code}</h2>
             <VerificationBadge state={evaluate(drawer, cart)} />
-            <p>Sample record · no live checkout tested.</p>
+            <p>Illustrative verification details</p>
             <dl className="evidence-report">
               <div>
-                <dt>Example check results</dt>
+                <dt>Example checks</dt>
                 <dd>
                   {drawer.passes} of {drawer.tests} passed
                 </dd>
@@ -927,14 +922,13 @@ function App() {
                 <dd>{conditions(drawer)}</dd>
               </div>
               <div>
-                <dt>Human & live checkout signals</dt>
-                <dd>Not available for this record.</dd>
+                <dt>Checkout signals</dt>
+                <dd>Not available</dd>
               </div>
               <div>
-                <dt>Uncertainty</dt>
+                <dt>Limits</dt>
                 <dd>
-                  Merchant acceptance, exclusions and expiry may differ. Pass
-                  counts are not a success probability.
+                  Merchant acceptance, exclusions and expiry can change.
                 </dd>
               </div>
             </dl>
@@ -951,24 +945,23 @@ function App() {
         </div>
         <h2 id="sources-title">Why these changes?</h2>
         <p className="research-lead">
-          SimplyCodes already verifies codes, shows restrictions and helps at checkout.
-          The opportunity is what shoppers can do with that evidence.
+          Verification already exists. Make the next action easier to see.
         </p>
         <div className="research-decisions">
           <article>
             <span className="overline">KEEP</span>
             <h3>The verification engine</h3>
-            <p>Health Scores, Proof Packets and clear no-code states are already part of the product.</p>
+            <p>Keep Health Scores, Proof Packets and no-code states.</p>
           </article>
           <article>
             <span className="overline">CHANGE</span>
             <h3>Make eligibility obvious</h3>
-            <p>A code verified for a merchant isn't necessarily eligible for this cart. Show the condition before the code.</p>
+            <p>Match the code to this cart before recommending it.</p>
           </article>
           <article>
             <span className="overline">EXTEND</span>
             <h3>Give agents the same clarity</h3>
-            <p>Return a dated verdict, relevant restrictions and an honest next action, including when no code is confirmed.</p>
+            <p>Return dated evidence, restrictions and the next action.</p>
           </article>
         </div>
         <div className="research-sources">

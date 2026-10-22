@@ -403,5 +403,16 @@ test("contextual hints clear after use and the closing thesis appears", async ({
   const closing = page.locator("#chapter-5 .vision-story");
   await expect(closing.getByRole("heading", { name: "Before AI can shop for you, it has to earn your trust." })).toBeVisible();
   await expect(closing).toContainText("SimplyCodes earns trust in the recommendation.");
-  await expect(closing).toContainText("That's the transition I'd love to help build.");
+  await expect(closing).not.toContainText("That's the transition I'd love to help build.");
+  await expect(closing).not.toContainText("My approach");
+  await expect(page.locator(".topbar")).not.toContainText("Independent study");
+});
+
+test("closing uses the wider reading area without forced breaks", async ({ page }) => {
+  await page.setViewportSize({ width: 1600, height: 960 });
+  await page.goto("/");
+  const story = page.locator("#chapter-5 .vision-story");
+  const width = await story.locator(".vision-copy").evaluate(el => el.getBoundingClientRect().width);
+  expect(width).toBeGreaterThan(850);
+  await expect(story.locator("br")).toHaveCount(0);
 });

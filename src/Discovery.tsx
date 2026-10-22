@@ -112,7 +112,7 @@ export function Discovery({ active = false }: { active?: boolean }) {
   return (
     <div className="discovery overview-surface">
       <div className="discovery-intro">
-        <p>{exploredChannels ? "The same evidence, different entry points." : "Select AI Search to see what a shopper's assistant could answer."}</p>
+        <p>{exploredChannels ? "One record. Three channels." : "Select AI Search to see the answer."}</p>
       </div>
       <div
         className="discovery-tabs"
@@ -230,7 +230,7 @@ export function Discovery({ active = false }: { active?: boolean }) {
                     <Code2 size={14} />
                     Inspect structured data
                   </summary>
-                  <p>Readable navigation and breadcrumb markup stay aligned.</p>
+                  
                   <pre>
                     {JSON.stringify(
                       fields[5] && fields[2] ? breadcrumbExample : {},
@@ -251,18 +251,14 @@ export function Discovery({ active = false }: { active?: boolean }) {
                       validateBreadcrumb(breadcrumbExample).length === 0
                         ? "Required breadcrumb fields present."
                         : "Add visible breadcrumbs and their required markup."}{" "}
-                      Local guideline check; not a Google Rich Results Test
-                      result.
+                      
                     </p>
                   )}
                   
                 </details>
               </div>
             </div>
-            <p className="discovery-note">
-              Titles and snippets can be rewritten. Structured data does not
-              guarantee inclusion or ranking.
-            </p>
+            
           </>
         ) : (
           <>
@@ -285,7 +281,7 @@ export function Discovery({ active = false }: { active?: boolean }) {
                   ))}
                 </select>
               </label>
-              <span>Source-attributed. Dated. Scoped.</span>
+              
             </div>
             {mode === 1 ? (
               <>
@@ -479,8 +475,7 @@ export function Discovery({ active = false }: { active?: boolean }) {
                               {approved ? (
                                 <div role="status">
                                   <p>
-                                    Approved locally. No order or payment
-                                    created.
+                                    Action approved in this sample.
                                   </p>
                                   <a
                                     href={action.url!}
@@ -523,9 +518,7 @@ export function Discovery({ active = false }: { active?: boolean }) {
           </>
         )}
       </div>
-      <div className="discovery-closing">
-        <p>A verified answer should be useful wherever shopping starts.</p>
-      </div>
+      
     </div>
   );
 }

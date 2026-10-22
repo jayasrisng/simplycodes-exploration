@@ -11,29 +11,29 @@ const stages = [
   {
     name: "Find",
     description: "Discover coupons.",
-    detail: "Start with the shopping habit people already know.",
+    detail: "Show relevant offers.",
   },
   {
     name: "Verify",
     description: "Establish whether they work.",
-    detail: "Replace a promotional claim with a dated verification record.",
+    detail: "Check validity and restrictions.",
   },
   {
     name: "Decide",
     description: "Identify relevant savings.",
-    detail: "Connect the evidence to this shopper’s cart and eligibility.",
+    detail: "Match the shopper’s cart.",
   },
   {
     name: "Assist",
     description: "Help complete the purchase.",
     detail:
-      "Make restrictions, application and recovery part of one clear flow.",
+      "Apply a code and handle rejection.",
   },
   {
     name: "Act",
     description: "Execute approved actions.",
     detail:
-      "Ask for explicit permission. Keep the scope visible and reversible.",
+      "Require explicit approval.",
   },
 ];
 export function Evolution({
@@ -82,7 +82,7 @@ export function Evolution({
     <div className="evolution overview-surface">
       <div className="evolution-intro">
         <span className="overline">FROM HELPFUL TO TRUSTED</span>
-        <p>Select a step to see how AI earns permission to do more.</p>
+        <p>Select a step to explore the journey.</p>
       </div>
       <div
         className="evolution-rail"
@@ -199,7 +199,7 @@ export function Evolution({
                       ? `Prepare ${best.code} for this cart?`
                       : "Prepare a merchant savings link?"}
                   </b>
-                  <p>Only this action. No order or payment.</p>
+                  <p>Approval covers this action only.</p>
                 </div>
               </div>
               <button
@@ -219,39 +219,28 @@ export function Evolution({
               </button>
               <p className="approval-status" role="status">
                 {approved
-                  ? "Permission granted for this example only. No external action executed."
-                  : "The shopper stays in control."}
+                  ? "Approval recorded for this sample."
+                  : "Nothing happens without approval."}
               </p>
             </>
           )}
         </div>
       </div>
       <div className="vision-story">
-        <span className="overline">THE BIGGER PICTURE</span>
         <h2>Before AI can shop for you, it has to earn your trust.</h2>
         <div className="vision-copy">
-          <p>People don't come to SimplyCodes to understand coupon verification. They come to save money.</p>
           <p>
-            My approach starts there: make the best eligible saving obvious,
-            remove unnecessary decisions, and keep the evidence one click away.
-            The goal is to turn more visitors into shoppers who successfully complete purchases.
+            People come to SimplyCodes to save money, not study coupon verification.
+            The best eligible saving should be obvious, with restrictions and proof one click away.
           </p>
-          <p>But I see a bigger opportunity.</p>
           <p>
-            Snapchat made AR familiar through playful filters before introducing products
-            like Specs. It didn't ask people to understand the technology first.
-            It made them comfortable using it.
-          </p>
-          <p>I see a similar path for SimplyCodes and Product.ai.</p>
-          <p>
-            First, shoppers trust AI to find a code. Then to verify it. Then to choose
-            the best option. Eventually, they trust it to complete a purchase within
-            boundaries they've approved.
+            Snapchat made AR familiar through Lenses before introducing Specs.
+            Shopping can follow the same path: find a code, verify it, choose the
+            best option, then approve an AI agent to act.
           </p>
           <p className="vision-thesis">
             <strong>SimplyCodes earns trust in the recommendation. Product.ai can extend that trust into action.</strong>
           </p>
-          <p>That's the transition I'd love to help build.</p>
         </div>
         <button className="outline vision-back" onClick={onExplore}>
           Back to the shopping comparison <ArrowRight size={16} />

@@ -38,4 +38,6 @@ The revenue calculator and its state are removed. The pure contribution helper r
 
 Dedicated repository and GitHub Pages workflow. Publishing does not write to the existing portfolio repository or modify DNS. The safe GitHub project path is `/simplycodes-exploration/`; `/simplycodes` or a subdomain requires additional hosting configuration. Vite uses relative asset paths to support the separate project deployment.
 
-The final section contains the complete trust-to-agent-commerce closing. Contextual cues direct visitors to the first customer choice, evidence inspection, checkout and AI-search channel, and stop pulsing after interaction. Reduced-motion preferences are respected.
+The final section closes with a concise trust-to-agent-commerce progression. Contextual cues direct visitors to the first customer choice, evidence inspection, checkout and AI-search channel, and stop pulsing after interaction. Reduced-motion preferences are respected.
+
+A small factual disclosure of sample data stays in Design notes; the main presentation and concluding passage avoid defensive copy. Editorial text uses the available desktop width.
