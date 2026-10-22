@@ -34,11 +34,11 @@ for (const width of [1440, 1280, 768, 390]) {
       .getByRole("button", { name: "Approve this action" })
       .click();
     await expect(evolution.getByRole("status")).toContainText(
-      "Permission granted",
+      "Approval recorded",
     );
     await evolution.getByRole("button", { name: /Approved locally/ }).click();
     await expect(evolution.getByRole("status")).toContainText(
-      "The shopper stays in control",
+      "Nothing happens without approval",
     );
     await evolution.getByRole("tab").first().click();
     await page
@@ -184,7 +184,7 @@ for (const width of [1440, 1280, 768, 390]) {
       .getByRole("button", { name: "Approve this action" })
       .click();
     await expect(discovery.getByRole("status")).toContainText(
-      "Approved locally",
+      "Action approved in this sample.",
     );
     await discovery
       .getByLabel("Verification record")
@@ -203,7 +203,7 @@ for (const width of [1440, 1280, 768, 390]) {
       .getByRole("button", { name: "Approve this action" })
       .click();
     await expect(discovery.getByRole("status")).toContainText(
-      "Approved locally",
+      "Action approved in this sample.",
     );
     await page.screenshot({ path: `test-results/agent-verified-${width}.png` });
     for (const state of ["UNTESTED", "WITHHELD"]) {
