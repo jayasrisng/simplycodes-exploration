@@ -10,16 +10,16 @@ for (const width of [1440, 1280, 768, 390]) {
     page.on("pageerror", (e) => errors.push(e.message));
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Same evidence.",
+      "Find the saving.",
     );
     await expect(page.locator("[data-chapter]")).toHaveCount(6);
-    await expect(page.locator("#chapter-1 .proposal")).toContainText("$30.00");
+    await expect(page.locator("#chapter-0 .proposal")).toContainText("$30.00");
     await page.screenshot({ path: `test-results/first-viewport-${width}.png` });
     await page.screenshot({
       path: `test-results/full-page-${width}.png`,
       fullPage: true,
     });
-    const evolution = page.locator("#chapter-0");
+    const evolution = page.locator("#chapter-5");
     for (let i = 0; i < 5; i++) {
       await evolution.getByRole("tab").nth(i).click();
       await expect(evolution.getByRole("tabpanel")).toHaveAttribute(
@@ -43,9 +43,9 @@ for (const width of [1440, 1280, 768, 390]) {
     await evolution.getByRole("tab").first().click();
     await page
       .getByRole("navigation")
-      .getByRole("button", { name: /01 Find a Code/ })
+      .getByRole("button", { name: /00 Find a Code/ })
       .click();
-    await expect(page.locator("#chapter-1 .proposal")).toContainText("$30.00");
+    await expect(page.locator("#chapter-0 .proposal")).toContainText("$30.00");
     if (width === 390) {
       await page.getByRole("button", { name: "Existing", exact: true }).click();
       await page.screenshot({
@@ -74,26 +74,26 @@ for (const width of [1440, 1280, 768, 390]) {
           await expect(title).toBeInViewport();
     }
     await page.getByRole("button", { name: "Nike", exact: true }).click();
-    await expect(page.locator("#chapter-1 .proposal")).toContainText(
+    await expect(page.locator("#chapter-0 .proposal")).toContainText(
       "No verified code.",
     );
-    await expect(page.locator("#chapter-1 .existing")).toContainText(
+    await expect(page.locator("#chapter-0 .existing")).toContainText(
       "UNVERIFIED",
     );
     await page.getByRole("button", { name: "Vistaprint", exact: true }).click();
-    await page.locator("#chapter-2").scrollIntoViewIfNeeded();
+    await page.locator("#chapter-1").scrollIntoViewIfNeeded();
     await page
       .getByLabel("Student eligibility", { exact: true })
       .selectOption("yes");
-    await expect(page.locator("#chapter-2 .decision-code")).toContainText(
+    await expect(page.locator("#chapter-1 .decision-code")).toContainText(
       "STUDENT30",
     );
     await page.getByLabel("Customer", { exact: true }).selectOption("new");
-    await expect(page.locator("#chapter-2 .decision-code")).toContainText(
+    await expect(page.locator("#chapter-1 .decision-code")).toContainText(
       "WELCOME40",
     );
-    await expect(page.locator("#chapter-2 .question")).toHaveCount(0);
-    const proofButton = page.locator("#chapter-2 .decision-code button");
+    await expect(page.locator("#chapter-1 .question")).toHaveCount(0);
+    const proofButton = page.locator("#chapter-1 .decision-code button");
     await proofButton.click();
     await expect(page.getByRole("dialog", { name: "WELCOME40" })).toBeVisible();
     await page.screenshot({ path: `test-results/evidence-${width}.png` });
@@ -101,24 +101,24 @@ for (const width of [1440, 1280, 768, 390]) {
     await page.keyboard.press("Escape");
     await expect(page.getByRole("dialog")).not.toBeVisible();
     await expect(proofButton).toBeFocused();
-    await page.locator("#chapter-3").scrollIntoViewIfNeeded();
+    await page.locator("#chapter-2").scrollIntoViewIfNeeded();
     const privacy = page.getByRole("switch", {
       name: /Cart sharing permission/,
     });
     await privacy.click();
     await expect(privacy).toHaveAttribute("aria-checked", "true");
-    await page.locator("#chapter-4").scrollIntoViewIfNeeded();
+    await page.locator("#chapter-3").scrollIntoViewIfNeeded();
     // Exercise both routes, including the phone's panel switch.
     if (width === 390)
       await page.getByRole("button", { name: "Existing", exact: true }).click();
-    await page.locator("#chapter-4 .existing select").selectOption("print");
+    await page.locator("#chapter-3 .existing select").selectOption("print");
     await page
       .getByRole("button", { name: "Try PRINT25", exact: true })
       .click();
     await expect(
-      page.locator("#chapter-4 .existing .checkout-message"),
+      page.locator("#chapter-3 .existing .checkout-message"),
     ).toContainText("Code accepted");
-    await expect(page.locator("#chapter-4 .existing .total")).toContainText(
+    await expect(page.locator("#chapter-3 .existing .total")).toContainText(
       "$90.00",
     );
     if (width === 390)
@@ -127,9 +127,9 @@ for (const width of [1440, 1280, 768, 390]) {
       .getByRole("button", { name: "Apply eligible offer", exact: true })
       .click();
     await expect(
-      page.locator("#chapter-4 .proposal .checkout-message"),
+      page.locator("#chapter-3 .proposal .checkout-message"),
     ).toContainText("Saved $48.00");
-    await expect(page.locator("#chapter-4 .proposal .total")).toContainText(
+    await expect(page.locator("#chapter-3 .proposal .total")).toContainText(
       "$72.00",
     );
     await page.getByRole("button", { name: "Review final payable" }).click();
@@ -139,9 +139,9 @@ for (const width of [1440, 1280, 768, 390]) {
       .getByRole("button", { name: "Apply eligible offer", exact: true })
       .click();
     await expect(
-      page.locator("#chapter-4 .proposal .checkout-message"),
+      page.locator("#chapter-3 .proposal .checkout-message"),
     ).toContainText("No discount counted");
-    await expect(page.locator("#chapter-4 .proposal .total")).toContainText(
+    await expect(page.locator("#chapter-3 .proposal .total")).toContainText(
       "$120.00",
     );
     await page
@@ -151,14 +151,14 @@ for (const width of [1440, 1280, 768, 390]) {
     await page
       .getByRole("button", { name: "Apply eligible offer", exact: true })
       .click();
-    await expect(page.locator("#chapter-4 .proposal .total")).toContainText(
+    await expect(page.locator("#chapter-3 .proposal .total")).toContainText(
       "$72.00",
     );
     await page
       .getByRole("navigation")
-      .getByRole("button", { name: /05 Be Found Everywhere/ })
+      .getByRole("button", { name: /04 Be Found Everywhere/ })
       .click();
-    const discovery = page.locator("#chapter-5");
+    const discovery = page.locator("#chapter-4");
     await discovery
       .getByText("Inspect structured data", { exact: true })
       .click();
@@ -240,7 +240,7 @@ for (const width of [1440, 1280, 768, 390]) {
     await page.getByRole("button", { name: "Close design notes" }).click();
     {
       await page.getByRole("button", { name: "Restart", exact: true }).click();
-      await expect(page.locator("#chapter-0")).toBeInViewport();
+      await expect(page.locator("#chapter-5")).toBeInViewport();
       await expect(page.getByRole("tab", { name: /01 FIND/ })).toHaveAttribute(
         "aria-selected",
         "true",
@@ -260,14 +260,14 @@ test("keyboard navigation, no-code checkout and reduced motion", async ({
     page.getByText("Skip to exploration", { exact: true }),
   ).toBeFocused();
   await page.keyboard.press("Enter");
-  await expect(page.locator("#chapter-0")).toBeInViewport();
+  await expect(page.locator("#chapter-5")).toBeInViewport();
   await page.getByRole("button", { name: "Nike", exact: true }).click();
   await page
     .getByRole("navigation", { name: "Chapters" })
     .getByRole("button", { name: /Apply & Save/ })
     .focus();
   await page.keyboard.press("Enter");
-  await expect(page.locator("#chapter-4")).toBeInViewport();
+  await expect(page.locator("#chapter-3")).toBeInViewport();
   await expect(
     page.getByRole("button", { name: "Apply eligible offer" }),
   ).toBeDisabled();
@@ -286,7 +286,7 @@ test("WCAG contrast, labels and dialog semantics on both mobile views", async ({
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page
       .getByRole("navigation")
-      .getByRole("button", { name: /01 Find a Code/ })
+      .getByRole("button", { name: /00 Find a Code/ })
       .click();
     for (const view of width === 390
       ? ["Proposal", "Existing"]
@@ -324,7 +324,7 @@ test("evolution and discovery tablists support keyboard traversal", async ({
   await expect(first).toBeFocused();
   await page
     .getByRole("navigation")
-    .getByRole("button", { name: /05 Be Found/ })
+    .getByRole("button", { name: /04 Be Found/ })
     .click();
   await page.getByRole("tab", { name: "SEO Google Search" }).focus();
   await page.keyboard.press("ArrowRight");
@@ -343,7 +343,7 @@ test("discovery accessibility in each channel and on phones", async ({
     await page.goto("/");
     await page
       .getByRole("navigation")
-      .getByRole("button", { name: /05 Be Found/ })
+      .getByRole("button", { name: /04 Be Found/ })
       .click();
     for (const name of [
       "SEO Google Search",
@@ -370,4 +370,16 @@ test("discovery accessibility in each channel and on phones", async ({
       ).toEqual([]);
     }
   }
+});
+
+test("first viewport explains the decision and reacts to customer eligibility",async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  const first=page.locator("#chapter-0");
+  await expect(first.locator(".proposal .saving")).toContainText("$30.00");
+  await first.getByRole("button",{name:"New customer",exact:true}).click();
+  await expect(first.locator(".proposal .saving")).toContainText("$48.00");
+  await expect(first.locator(".proposal .decision-code")).toContainText("WELCOME40");
+  await first.getByRole("button",{name:"Returning customer",exact:true}).click();
+  await expect(first.locator(".proposal .saving")).toContainText("$30.00");
 });

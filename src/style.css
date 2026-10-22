@@ -2392,3 +2392,20 @@ pre {
 .research-sources .source-links { margin: 7px 0 0; column-gap: 24px; }
 .research-sources .source-links a { font-size: 12px; padding: 10px 0; color: #c5d9cb; }
 .sources-dialog .research-boundary { margin: 18px 0 0; padding-top: 15px; border-top: 1px solid var(--line); color: #a1b5a8; font-size: 11px; line-height: 1.65; }
+
+/* Start with a shopping task, not a slide deck. */
+.first-task{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 32px;background:#16271b;border-bottom:1px solid #395942}
+.first-task .overline{font-size:10px;color:#90ecb7}
+.first-task h3{margin:5px 0 4px;font-size:clamp(16px,1.4vw,20px);letter-spacing:-.3px;font-weight:600}
+.first-task p{margin:0;font-size:12px;color:#bcd1c1}
+.first-task-controls{display:flex;gap:4px;padding:4px;border:1px solid #385642;background:#101c14;border-radius:8px;flex-shrink:0}
+.first-task-controls button{padding:10px 13px;font-size:12px;border-radius:5px;color:#c6d9cc;white-space:nowrap}
+.first-task-controls button[aria-pressed="true"]{background:#03ff88;color:#062616;font-weight:700}
+.vision-story{max-width:850px;margin:30px 0 0;border-top:1px solid var(--line);padding:32px 0 10px}
+.vision-story .overline{color:#90ecb7}
+.vision-story h3{font-size:clamp(23px,2.5vw,34px);font-weight:500;letter-spacing:-.8px;margin:14px 0}
+.vision-story>p{font-size:15px;color:#c6d8cb;line-height:1.7;max-width:740px}
+.vision-closing{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin-top:20px}
+.vision-closing strong{color:#f0faf3;font-weight:600}
+@media(max-width:1100px){.first-task{flex-direction:column;align-items:flex-start}}
+@media(max-width:767px){.first-task{padding:18px}.first-task-controls{width:100%}.first-task-controls button{flex:1}.vision-story{padding:24px 0 8px}}

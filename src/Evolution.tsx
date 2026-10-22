@@ -81,8 +81,8 @@ export function Evolution({
   return (
     <div className="evolution overview-surface">
       <div className="evolution-intro">
-        <span className="overline">THE NEXT SHOPPING HABIT</span>
-        <p>Before AI can act for someone, it needs to help them make the right small decisions.</p>
+        <span className="overline">FROM HELPFUL TO TRUSTED</span>
+        <p>Make the small decisions reliable before asking shoppers to delegate larger ones.</p>
       </div>
       <div
         className="evolution-rail"
@@ -226,15 +226,23 @@ export function Evolution({
           )}
         </div>
       </div>
-      <div className="evolution-footer">
+      <div className="vision-story">
+        <span className="overline">THE LONGER-TERM OPPORTUNITY</span>
+        <h3>Trust is learned through useful experiences.</h3>
         <p>
-          The more responsibility we give AI,
-          <br />
-          the easier trust and control should become.
+          Snapchat made AR familiar through Lenses before bringing it into hardware.
+          Shopping can follow a similar path. SimplyCodes first helps people trust
+          a code, then a recommendation for their own cart. Product.ai can build
+          on that familiarity to help shoppers compare, decide and eventually
+          approve purchases. At every step, the evidence and permission to act
+          should be clear.
         </p>
-        <button className="primary" onClick={onExplore}>
-          Explore the shopping flow <ArrowRight size={16} />
-        </button>
+        <div className="vision-closing">
+          <strong>From finding a coupon to trusting an agent.</strong>
+          <button className="outline" onClick={onExplore}>
+            Back to the shopping comparison <ArrowRight size={16} />
+          </button>
+        </div>
       </div>
     </div>
   );

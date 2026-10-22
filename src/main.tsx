@@ -48,12 +48,12 @@ for (const scope of ["shell", "existing", "proposal"] as const)
     document.documentElement.style.setProperty(`--${scope}-${key}`, value),
   );
 const chapters = [
-  "The Evolution of Shopping",
   "Find a Code",
   "Is It Eligible?",
   "Trust & Privacy",
   "Apply & Save",
   "Be Found Everywhere",
+  "What Comes Next",
 ];
 const sources = [
   ["Nike coupon page", "https://simplycodes.com/store/nike.com"],
@@ -230,7 +230,7 @@ function App() {
               className="primary full"
               onClick={() => {
                 setSelected(best.id);
-                jump(4);
+                jump(3);
               }}
             >
               Use {best.code} <ArrowRight size={16} />
@@ -322,11 +322,11 @@ function App() {
       <div className="workspace">
         <aside>
           <div className="sidebar-intro">
-            <span className="overline">THE EXPLORATION</span>
+            <span className="overline">THE SHOPPING DECISION</span>
             <h1>
-              Same evidence.
+              Find the saving.
               <br />
-              Clearer decisions.
+              Skip the guesswork.
             </h1>
           </div>
           <nav aria-label="Chapters">
@@ -345,22 +345,22 @@ function App() {
           
         </aside>
         <main>
-          <h1 className="mobile-title">Same evidence. Clearer decisions.</h1>
+          <h1 className="mobile-title">Find the saving. Skip the guesswork.</h1>
           <div
             className={
               "panel-headings " +
-              (active === 0 || active === 5 ? "overview-headings" : "")
+              (active === 4 || active === 5 ? "overview-headings" : "")
             }
           >
-            {active === 0 || active === 5 ? (
+            {active === 4 || active === 5 ? (
               <div className="overview-heading">
                 <span className="heading-mark" />
                 <span className="panel-title">
-                  {active === 0 ? "THE DIRECTION" : "THE DISCOVERY LAYER"}
+                  {active === 5 ? "THE BIGGER PICTURE" : "BE FOUND EVERYWHERE"}
                 </span>
                 <span className="heading-meta">
-                  {active === 0
-                    ? "From familiar to autonomous"
+                  {active === 5
+                    ? "From verified coupon to approved action"
                     : "One evidence record. Every channel."}
                 </span>
               </div>
@@ -370,13 +370,13 @@ function App() {
                   <span className="heading-mark" />
                   <span className="panel-title">EXISTING SIMPLYCODES</span>
                   <span className="heading-meta">
-                    Public interface patterns
+                    Published patterns
                   </span>
                 </div>
                 <div className="proposal">
                   <span className="heading-mark" />
                   <span className="panel-title">MY PROPOSAL</span>
-                  <span className="heading-meta">Cart-first decisions</span>
+                  <span className="heading-meta">For this cart</span>
                 </div>
               </>
             )}
@@ -386,9 +386,9 @@ function App() {
             role="group"
             aria-label="Comparison view"
           >
-            {active === 0 || active === 5 ? (
+            {active === 4 || active === 5 ? (
               <span className="mobile-context">
-                {active === 0 ? "THE DIRECTION" : "THE DISCOVERY LAYER"}
+                {active === 5 ? "THE BIGGER PICTURE" : "BE FOUND EVERYWHERE"}
               </span>
             ) : (
               <>
@@ -408,17 +408,18 @@ function App() {
             )}
           </div>
           <section id="chapter-0" data-chapter="0">
-            {strip(0, "Familiar actions. Greater responsibility.")}
-            <Evolution
-              key={resetEpoch}
-              cart={cart}
-              best={best}
-              onEvidence={setDrawer}
-              onExplore={() => jump(1)}
-            />
-          </section>
-          <section id="chapter-1" data-chapter="1">
-            {strip(1, "One supported next step.")}
+            {strip(0, "Find the best supported saving.")}
+            <div className="first-task">
+              <div>
+                <span className="overline">START HERE</span>
+                <h3>You're shopping at {cart.merchant}. Which code works for a {money(cart.amount)} cart?</h3>
+                <p>Switch customer type. Watch both sides respond.</p>
+              </div>
+              <div className="first-task-controls" role="group" aria-label="Customer type">
+                <button aria-pressed={cart.customer === "returning"} onClick={() => update({ customer: "returning" })}>Returning customer</button>
+                <button aria-pressed={cart.customer === "new"} onClick={() => update({ customer: "new" })}>New customer</button>
+              </div>
+            </div>
             <div className="merchant-toolbar">
               <div
                 className="merchant-switch"
@@ -445,7 +446,7 @@ function App() {
               <span>
                 <ShoppingBag size={14} />
                 {money(cart.amount)} cart{" "}
-                <button className="text-button" onClick={() => jump(2)}>
+                <button className="text-button" onClick={() => jump(1)}>
                   Edit <ChevronRight size={12} />
                 </button>
               </span>
@@ -489,15 +490,15 @@ function App() {
                 {recommendation(true)}
                 <button
                   className="text-button next-link"
-                  onClick={() => jump(2)}
+                  onClick={() => jump(1)}
                 >
                   Change cart conditions <ArrowRight size={14} />
                 </button>
               </>,
             )}
           </section>
-          <section id="chapter-2" data-chapter="2">
-            {strip(2, "Match the conditions before choosing a code.")}
+          <section id="chapter-1" data-chapter="1">
+            {strip(1, "A verified code also needs to fit this cart.")}
             <div className="cart-controls">
               <label>
                 Cart amount <strong>{money(cart.amount)}</strong>
@@ -591,8 +592,8 @@ function App() {
               </>,
             )}
           </section>
-          <section id="chapter-3" data-chapter="3">
-            {strip(3, "The verdict first. Full proof one click away.")}
+          <section id="chapter-2" data-chapter="2">
+            {strip(2, "One clear verdict. Full evidence one click away.")}
             {pair(
               <>
                 <div className="list-heading">
@@ -689,10 +690,9 @@ function App() {
               </>,
             )}
           </section>
-          <section id="chapter-4" data-chapter="4">
-            {strip(
-              4,
-              "Compare the manual route with cart-assisted application.",
+          <section id="chapter-3" data-chapter="3">
+            {strip(3,
+              "Fewer attempts. Clear results and recovery.",
             )}
             <div className="checkout-toolbar">
               <span>
@@ -850,12 +850,21 @@ function App() {
               </div>,
             )}
           </section>
-          <section id="chapter-5" data-chapter="5">
-            {strip(
-              5,
-              "Search, assistants and agents need the same trustworthy record.",
+          <section id="chapter-4" data-chapter="4">
+            {strip(4,
+              "Make verified answers useful across search and AI.",
             )}
             <Discovery key={resetEpoch} />
+          </section>
+          <section id="chapter-5" data-chapter="5">
+            {strip(5, "Earn trust in small decisions before larger actions.")}
+            <Evolution
+              key={resetEpoch}
+              cart={cart}
+              best={best}
+              onEvidence={setDrawer}
+              onExplore={() => jump(0)}
+            />
           </section>
           <div className="workspace-footer">
             <button className="text-button" onClick={reset}>

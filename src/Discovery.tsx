@@ -521,9 +521,7 @@ export function Discovery() {
         )}
       </div>
       <div className="discovery-closing">
-        <p>From finding a coupon to trusting an agent.</p>
-        <h3>Make truth easy to act on.</h3>
-        
+        <p>A verified answer should be useful wherever shopping starts.</p>
       </div>
     </div>
   );
