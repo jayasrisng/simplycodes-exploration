@@ -221,17 +221,23 @@ for (const width of [1440, 1280, 768, 390]) {
         "No verification timestamp",
       );
     }
-    await page.getByRole("button", { name: /Sources, system/ }).click();
+    await page.getByRole("button", { name: "Why these changes" }).click();
+    const designNotes = page.getByRole("dialog", {
+      name: "Why these changes?",
+    });
+    await expect(designNotes).toBeVisible();
     await expect(
-      page.getByRole("dialog", { name: "Sources & scope" }),
+      designNotes.getByRole("heading", { name: "The verification engine" }),
     ).toBeVisible();
-    await page.getByText("AI-agent evidence", { exact: true }).click();
     await expect(
-      page.getByText("SimplyCodes already publishes MCP tools:", {
-        exact: false,
-      }),
+      designNotes.getByRole("heading", { name: "Make eligibility obvious" }),
     ).toBeVisible();
-    await page.getByRole("button", { name: "Close sources" }).click();
+    await expect(
+      designNotes.getByRole("heading", { name: "Give agents the same clarity" }),
+    ).toBeVisible();
+    await expect(designNotes.locator(".source-links a")).toHaveCount(6);
+    await expect(designNotes).not.toContainText("Product.ai role");
+    await page.getByRole("button", { name: "Close design notes" }).click();
     {
       await page.getByRole("button", { name: "Restart", exact: true }).click();
       await expect(page.locator("#chapter-0")).toBeInViewport();
