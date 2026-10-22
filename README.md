@@ -1,6 +1,6 @@
 # SimplyCodes — From Verification to Decision
 
-[Open the live workspace](https://jayasrisng.com/simplycodes-exploration/). An independent, interactive product thinking exploration by [Jayasri Guthula](https://jayasrisng.com/).
+[Open the interactive comparison](https://jayasrisng.com/simplycodes-exploration/). Independent exploration of a decision-first shopping experience.
 
 Six chapters trace FIND → VERIFY → DECIDE → ASSIST → ACT, preserve four shopping comparisons, and finish with interactive SEO, AI-search and MCP discovery. Chapters run from 00 to 05. A persistent dark workspace keeps Existing SimplyCodes and My Proposal side by side on desktop; phones use an Existing / Proposal switch. Both views share the same cart and pure rules engine.
 

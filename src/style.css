@@ -2378,3 +2378,17 @@ pre {
     right: 0;
   }
 }
+
+/* Editorial decision record, not a link catalogue. */
+.sources-dialog { max-width: min(620px, calc(100vw - 32px)); }
+.sources-dialog .research-lead { color: #d2dfd5; font-size: 15px; line-height: 1.55; margin: 0 0 23px; }
+.research-decisions { display: grid; gap: 1px; border: 1px solid var(--line); background: var(--line); border-radius: 8px; overflow: hidden; }
+.research-decisions article { background: #202b25; padding: 17px 20px; }
+.research-decisions .overline { color: #76e9aa; font-size: 10px; }
+.research-decisions h3 { margin: 7px 0 4px; font-size: 16px; color: #f1f7f2; }
+.research-decisions p { margin: 0; font-size: 13px; line-height: 1.5; color: #bdcdc1; }
+.research-sources { margin-top: 25px; }
+.research-sources > h3 { font-size: 13px; color: #dce8df; }
+.research-sources .source-links { margin: 7px 0 0; column-gap: 24px; }
+.research-sources .source-links a { font-size: 12px; padding: 10px 0; color: #c5d9cb; }
+.sources-dialog .research-boundary { margin: 18px 0 0; padding-top: 15px; border-top: 1px solid var(--line); color: #a1b5a8; font-size: 11px; line-height: 1.65; }

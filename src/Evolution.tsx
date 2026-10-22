@@ -81,15 +81,8 @@ export function Evolution({
   return (
     <div className="evolution overview-surface">
       <div className="evolution-intro">
-        <span className="overline">MY PRODUCT DIRECTION</span>
-        <p>
-          My reference: Snapchat Lenses → Specs.
-          <br />
-          Build familiarity before asking for greater responsibility.
-        </p>
-        <span className="direction-note">
-          An approach to explore, not an official roadmap.
-        </span>
+        <span className="overline">THE NEXT SHOPPING HABIT</span>
+        <p>Before AI can act for someone, it needs to help them make the right small decisions.</p>
       </div>
       <div
         className="evolution-rail"

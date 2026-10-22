@@ -56,44 +56,12 @@ const chapters = [
   "Be Found Everywhere",
 ];
 const sources = [
-  ["Merchant: Nike", "https://simplycodes.com/store/nike.com"],
-  ["Merchant: Vistaprint", "https://simplycodes.com/store/vistaprint.com"],
-  ["SimplyCodes identity", "https://simplycodes.com/"],
-  ["Verification & Proof Packets", "https://simplycodes.com/how-it-works"],
-  ["Privacy commitments", "https://simplycodes.com/privacy"],
-  ["Existing extension", "https://simplycodes.com/extension"],
-  ["Commission model", "https://simplycodes.com/how-we-make-money"],
-  ["Product.ai role", "https://product.ai/join/design-engineer/"],
-  ["SimplyCodes MCP tools", "https://mcp.simplycodes.com/"],
-  ["MCP developer contract", "https://developers.simplycodes.com/docs"],
-  ["Published server manifest", "https://mcp.simplycodes.com/server.json"],
-  [
-    "Google search fundamentals",
-    "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
-  ],
-  [
-    "Google breadcrumb requirements",
-    "https://developers.google.com/search/docs/appearance/structured-data/breadcrumb",
-  ],
-  [
-    "Product markup eligibility",
-    "https://developers.google.com/search/docs/appearance/structured-data/product-snippet",
-  ],
-  [
-    "Merchant listing requirements",
-    "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing",
-  ],
-  ["OpenAI crawler access", "https://developers.openai.com/api/docs/bots"],
-  [
-    "OpenAI commerce feeds",
-    "https://developers.openai.com/commerce/guides/get-started",
-  ],
-  ["Snap Lenses & Specs reference", "https://www.specs.com/"],
-  ["Capital One Shopping", "https://capitaloneshopping.com/"],
-  ["PayPal Honey", "https://www.joinhoney.com/"],
-  ["Rakuten", "https://www.rakuten.com/"],
-  ["Groupon", "https://www.groupon.com/"],
-  ["inKind", "https://inkind.com/"],
+  ["Nike coupon page", "https://simplycodes.com/store/nike.com"],
+  ["Vistaprint coupon page", "https://simplycodes.com/store/vistaprint.com"],
+  ["Verification method", "https://simplycodes.com/how-it-works"],
+  ["Privacy policy", "https://simplycodes.com/privacy"],
+  ["Browser extension", "https://simplycodes.com/extension"],
+  ["Published agent tools", "https://mcp.simplycodes.com/"],
 ];
 function App() {
   const [active, setActive] = useState(0),
@@ -343,11 +311,11 @@ function App() {
           SimplyCodes
         </a>
         <span className="topbar-title">
-          Independent & unaffiliated · illustrative offers and checkout
+          Independent study · sample shopping interactions
         </span>
         <div className="topbar-actions">
           <button className="text-button" onClick={() => setSourcesOpen(true)}>
-            Sources <ArrowUpRight size={14} />
+            Design notes <ArrowUpRight size={14} />
           </button>
         </div>
       </header>
@@ -374,11 +342,7 @@ function App() {
               </button>
             ))}
           </nav>
-          <div className="sidebar-bottom">
-            <a href="https://jayasrisng.com/" target="_blank" rel="noreferrer">
-              Jayasri Guthula <ArrowUpRight size={13} />
-            </a>
-          </div>
+          
         </aside>
         <main>
           <h1 className="mobile-title">Same evidence. Clearer decisions.</h1>
@@ -903,9 +867,8 @@ function App() {
               onClick={() => setSourcesOpen(true)}
             >
               <Code2 size={15} />
-              Sources, system & agent research <ArrowUpRight size={14} />
+              Why these changes <ArrowUpRight size={14} />
             </button>
-            <span>USD · tax excluded · no payments</span>
           </div>
         </main>
       </div>
@@ -918,7 +881,7 @@ function App() {
         }}
       >
         <div className="dialog-head">
-          <span className="overline">ILLUSTRATIVE EVIDENCE</span>
+          <span className="overline">EVIDENCE DETAILS</span>
           <button
             className="icon-button"
             aria-label="Close evidence"
@@ -931,16 +894,16 @@ function App() {
           <>
             <h2 id="evidence-title">{drawer.code}</h2>
             <VerificationBadge state={evaluate(drawer, cart)} />
-            <p>No real merchant checkout was tested.</p>
+            <p>Sample record · no live checkout tested.</p>
             <dl className="evidence-report">
               <div>
-                <dt>Modeled test results</dt>
+                <dt>Example check results</dt>
                 <dd>
                   {drawer.passes} of {drawer.tests} passed
                 </dd>
               </div>
               <div>
-                <dt>Fixture timestamp · UTC</dt>
+                <dt>Recorded time · UTC</dt>
                 <dd>{drawer.tested}</dd>
               </div>
               <div>
@@ -949,7 +912,7 @@ function App() {
               </div>
               <div>
                 <dt>Human & live checkout signals</dt>
-                <dd>Not collected in this exploration.</dd>
+                <dd>Not available for this record.</dd>
               </div>
               <div>
                 <dt>Uncertainty</dt>
@@ -965,97 +928,45 @@ function App() {
           </>
         )}
       </dialog>
-      <dialog
-        ref={sourceRef}
-        className="sources-dialog"
-        aria-labelledby="sources-title"
-        onCancel={() => setSourcesOpen(false)}
-      >
+      <dialog ref={sourceRef} className="sources-dialog" aria-labelledby="sources-title" onCancel={() => setSourcesOpen(false)}>
         <div className="dialog-head">
-          <span className="overline">RESEARCH RECORD</span>
-          <button
-            className="icon-button"
-            aria-label="Close sources"
-            onClick={() => setSourcesOpen(false)}
-          >
-            <X size={20} />
-          </button>
+          <span className="overline">DESIGN NOTES</span>
+          <button className="icon-button" aria-label="Close design notes" onClick={() => setSourcesOpen(false)}><X size={20} /></button>
         </div>
-        <h2 id="sources-title">Sources & scope</h2>
-        <p>
-          Public pages observed October 21, 2026. Interface patterns are
-          approximations; interactive codes, timestamps and outcomes are local
-          fixtures.
+        <h2 id="sources-title">Why these changes?</h2>
+        <p className="research-lead">
+          SimplyCodes already verifies codes, shows restrictions and helps at checkout.
+          The opportunity is what shoppers can do with that evidence.
         </p>
-        <details open>
-          <summary>Current-state observations</summary>
-          <p>
-            Nike’s main count showed no verified codes. Vistaprint showed 20,
-            with restrictions, last-used information and expandable activity.
-            Counts may change.
-          </p>
-          <p>
-            The existing extension already advertises savings ranking,
-            restrictions and best-code application. The comparison explores
-            decision clarity, not a new auto-apply capability.
-          </p>
-          <p>
-            Privacy commitments are published claims, not an extension audit.
-            Exact retention was not specified on the inspected plain-language
-            page; formal legal terms govern. Proposed contextual wording needs
-            legal review. Sharing switches here are local preferences only.
-          </p>
-        </details>
-        <div className="source-links">
-          {sources.map(([name, url]) => (
-            <a key={url} href={url} target="_blank" rel="noreferrer">
-              {name}
-              <ExternalLink size={13} />
-            </a>
-          ))}
+        <div className="research-decisions">
+          <article>
+            <span className="overline">KEEP</span>
+            <h3>The verification engine</h3>
+            <p>Health Scores, Proof Packets and clear no-code states are already part of the product.</p>
+          </article>
+          <article>
+            <span className="overline">CHANGE</span>
+            <h3>Make eligibility obvious</h3>
+            <p>A code verified for a merchant isn't necessarily eligible for this cart. Show the condition before the code.</p>
+          </article>
+          <article>
+            <span className="overline">EXTEND</span>
+            <h3>Give agents the same clarity</h3>
+            <p>Return a dated verdict, relevant restrictions and an honest next action, including when no code is confirmed.</p>
+          </article>
         </div>
-        <details>
-          <summary>AI-agent evidence</summary>
-          <p>
-            SimplyCodes already publishes MCP tools: verify_promo_code,
-            get_merchant_codes, get_merchant_verification and
-            report_code_outcome. The published server manifest is version 0.5.1.
-            This exploration adapts its documented envelope; no authenticated
-            call or outcome report is made.
-          </p>
-          <p>
-            VERIFIED_OK, CONFIDENT_NO, UNTESTED and WITHHELD remain distinct.
-            WITHHELD means a merchant record is not materialized; transport and
-            access refusals are separate. Explorer responses use reveal links
-            rather than literal paid-tier codes. Example null timestamps are a
-            local representation of missing evidence, not a claim about full
-            server schema nullability.
-          </p>
-          <p>
-            Google examples use visible BreadcrumbList markup, not Product or
-            merchant-listing markup on a generic coupon page. Required fields
-            are checked locally against the linked guidelines; Google's external
-            Rich Results Test required sign-in and returned no validation
-            result. Crawler access and structured evidence do not guarantee
-            Google or ChatGPT inclusion.
-          </p>
-        </details>
-        <details>
-          <summary>Design system & implementation</summary>
-          <p>
-            Shared typed fixtures, pure eligibility and price functions, scoped
-            dark tokens, native evidence dialogs and reduced-motion support. No
-            analytics or payment collection.
-          </p>
-          <pre>{JSON.stringify(tokens, null, 2)}</pre>
-          <a
-            href="https://github.com/jayasrisng/simplycodes-exploration/tree/main/docs"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Read technical documentation <ArrowUpRight size={14} />
-          </a>
-        </details>
+        <div className="research-sources">
+          <h3>Source pages</h3>
+          <div className="source-links">
+            {sources.map(([name, url]) => (
+              <a key={url} href={url} target="_blank" rel="noopener noreferrer">{name} <ExternalLink size={13} /></a>
+            ))}
+          </div>
+        </div>
+        <p className="research-boundary">
+          Public pages reviewed October 21, 2026. Comparisons are interpretive.
+          Coupon outcomes use sample data; no live merchant checkout or MCP request was performed.
+        </p>
       </dialog>
     </>
   );

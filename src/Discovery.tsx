@@ -23,12 +23,12 @@ import {
 } from "./evidence";
 const modes = ["Google Search", "AI Search", "Agent integration"];
 const seoFields = [
-  "Title & description",
-  "Readable page content",
-  "Canonical & links",
-  "Verification freshness",
-  "Eligibility & restrictions",
-  "Breadcrumb markup",
+  "Specific title",
+  "Readable verdict",
+  "Merchant links",
+  "Last checked",
+  "Restrictions",
+  "Structured breadcrumbs",
 ];
 export function Discovery() {
   const [mode, setMode] = useState(0),
@@ -66,7 +66,7 @@ export function Discovery() {
       target="_blank"
       rel="noreferrer"
     >
-      SimplyCodes · Nike verification <ExternalLink size={13} />
+      Nike coupon page <ExternalLink size={13} />
     </a>
   );
   const result = (
@@ -110,10 +110,7 @@ export function Discovery() {
   return (
     <div className="discovery overview-surface">
       <div className="discovery-intro">
-        <p>Make verified information easy to find, cite and use.</p>
-        <span className="direction-note">
-          Illustrative search and tool responses
-        </span>
+        <p>One clear answer, whether someone searches, asks, or delegates.</p>
       </div>
       <div
         className="discovery-tabs"
@@ -151,9 +148,9 @@ export function Discovery() {
             <div className="discovery-grid">
               <div className="discovery-controls">
                 <span className="overline">
-                  A MERCHANT PAGE BUILT TO BE READ
+                  WHAT SEARCH CAN READ
                 </span>
-                <h3>Give search a useful page.</h3>
+                <h3>Make the answer findable.</h3>
                 {seoFields.map((label, i) => (
                   <label className="seo-toggle" key={label}>
                     <input
@@ -168,14 +165,11 @@ export function Discovery() {
                     <Check size={14} />
                   </label>
                 ))}
-                <p className="small-note">
-                  Keep facts in readable HTML. Add meaningful links and a
-                  canonical URL.
-                </p>
+                
               </div>
               <div className="page-excerpt">
                 <span className="overline">
-                  PAGE EXCERPT · NOT A SEARCH RANKING
+                  MERCHANT PAGE CONTENT
                 </span>
                 {fields[2] && (
                   <div className="breadcrumb">
@@ -233,11 +227,7 @@ export function Discovery() {
                     <Code2 size={14} />
                     Inspect structured data
                   </summary>
-                  <p>
-                    BreadcrumbList describes the visible trail. No
-                    merchant-listing Product markup: this page does not sell a
-                    specific product.
-                  </p>
+                  <p>Readable navigation and breadcrumb markup stay aligned.</p>
                   <pre>
                     {JSON.stringify(
                       fields[5] && fields[2] ? breadcrumbExample : {},
@@ -262,13 +252,7 @@ export function Discovery() {
                       result.
                     </p>
                   )}
-                  <a
-                    href="https://search.google.com/test/rich-results"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Open Google’s Rich Results Test <ArrowUpRight size={13} />
-                  </a>
+                  
                 </details>
               </div>
             </div>
@@ -307,7 +291,7 @@ export function Discovery() {
                     <span className="overline">
                       WHAT THE PAGE MAKES AVAILABLE
                     </span>
-                    <h3>One record. A citable answer.</h3>
+                    <h3>A clear answer, even when it’s no.</h3>
                     <ul className="evidence-fields">
                       <li>Merchant identity</li>
                       <li>Verdict and verification time</li>
@@ -331,29 +315,7 @@ export function Discovery() {
                         )}
                       </pre>
                     </details>
-                    <details>
-                      <summary>Crawler access & shopping discovery</summary>
-                      <p>
-                        Allow OAI-SearchBot and its published IP ranges for
-                        search access. GPTBot training controls are separate.
-                        Keep evidence accessible without login or blocked
-                        resources.
-                      </p>
-                      <p>
-                        Readable evidence helps retrieval; it does not guarantee
-                        ChatGPT inclusion or ranking. Product feeds are a
-                        separate, approved-partner commerce route—not an
-                        integration claimed by this site.
-                      </p>
-                      <a
-                        href="https://developers.openai.com/api/docs/bots"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Official crawler documentation{" "}
-                        <ArrowUpRight size={13} />
-                      </a>
-                    </details>
+                    
                   </div>
                   <div className="answer-card">
                     <span className="overline">
@@ -413,10 +375,7 @@ export function Discovery() {
                       EXISTING SIMPLYCODES MCP TOOLS
                     </span>
                     <h3>Call the verifier. Keep the receipt.</h3>
-                    <p className="small-note">
-                      Published tools, not a new integration claim. No live tool
-                      call is made here.
-                    </p>
+                    
                     <pre>
                       {JSON.stringify(
                         {
@@ -438,11 +397,7 @@ export function Discovery() {
                     </button>
                     <details>
                       <summary>Inspect the typed evidence</summary>
-                      <p>
-                        Explorer shape, adapted from the published v0.5.1
-                        envelope. Example values only; no literal paid-tier code
-                        is exposed.
-                      </p>
+                      
                       <pre className="agent-envelope">
                         {JSON.stringify(record, null, 2)}
                       </pre>
@@ -568,9 +523,7 @@ export function Discovery() {
       <div className="discovery-closing">
         <p>From finding a coupon to trusting an agent.</p>
         <h3>Make truth easy to act on.</h3>
-        <a href="https://jayasrisng.com/" target="_blank" rel="noreferrer">
-          Jayasri Guthula <ArrowUpRight size={14} />
-        </a>
+        
       </div>
     </div>
   );
