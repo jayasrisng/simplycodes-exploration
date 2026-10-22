@@ -240,7 +240,7 @@ for (const width of [1440, 1280, 768, 390]) {
     await page.getByRole("button", { name: "Close design notes" }).click();
     {
       await page.getByRole("button", { name: "Restart", exact: true }).click();
-      await expect(page.locator("#chapter-5")).toBeInViewport();
+      await expect(page.locator("#chapter-0")).toBeInViewport();
       await expect(page.getByRole("tab", { name: /01 FIND/ })).toHaveAttribute(
         "aria-selected",
         "true",
@@ -260,7 +260,7 @@ test("keyboard navigation, no-code checkout and reduced motion", async ({
     page.getByText("Skip to exploration", { exact: true }),
   ).toBeFocused();
   await page.keyboard.press("Enter");
-  await expect(page.locator("#chapter-5")).toBeInViewport();
+  await expect(page.locator("#chapter-0")).toBeInViewport();
   await page.getByRole("button", { name: "Nike", exact: true }).click();
   await page
     .getByRole("navigation", { name: "Chapters" })
