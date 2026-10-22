@@ -27,7 +27,6 @@ import {
   recommend,
   totals,
   money,
-  contribution,
   attempt,
   type Cart,
   type Offer,
@@ -40,6 +39,8 @@ import {
   EmptyState,
   conditions,
 } from "./components";
+import { Evolution } from "./Evolution";
+import { Discovery } from "./Discovery";
 import tokens from "./tokens.json";
 import "./style.css";
 for (const scope of ["shell", "existing", "proposal"] as const)
@@ -47,11 +48,12 @@ for (const scope of ["shell", "existing", "proposal"] as const)
     document.documentElement.style.setProperty(`--${scope}-${key}`, value),
   );
 const chapters = [
-  "Find a code",
-  "Is it eligible?",
-  "Trust & privacy",
-  "Apply & save",
-  "Business impact",
+  "The Evolution of Shopping",
+  "Find a Code",
+  "Is It Eligible?",
+  "Trust & Privacy",
+  "Apply & Save",
+  "Be Found Everywhere",
 ];
 const sources = [
   ["Merchant: Nike", "https://simplycodes.com/store/nike.com"],
@@ -62,7 +64,31 @@ const sources = [
   ["Existing extension", "https://simplycodes.com/extension"],
   ["Commission model", "https://simplycodes.com/how-we-make-money"],
   ["Product.ai role", "https://product.ai/join/design-engineer/"],
-  ["Agent / MCP availability", "https://product.ai/developers/"],
+  ["SimplyCodes MCP tools", "https://mcp.simplycodes.com/"],
+  ["MCP developer contract", "https://developers.simplycodes.com/docs"],
+  ["Published server manifest", "https://mcp.simplycodes.com/server.json"],
+  [
+    "Google search fundamentals",
+    "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+  ],
+  [
+    "Google breadcrumb requirements",
+    "https://developers.google.com/search/docs/appearance/structured-data/breadcrumb",
+  ],
+  [
+    "Product markup eligibility",
+    "https://developers.google.com/search/docs/appearance/structured-data/product-snippet",
+  ],
+  [
+    "Merchant listing requirements",
+    "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing",
+  ],
+  ["OpenAI crawler access", "https://developers.openai.com/api/docs/bots"],
+  [
+    "OpenAI commerce feeds",
+    "https://developers.openai.com/commerce/guides/get-started",
+  ],
+  ["Snap Lenses & Specs reference", "https://www.specs.com/"],
   ["Capital One Shopping", "https://capitaloneshopping.com/"],
   ["PayPal Honey", "https://www.joinhoney.com/"],
   ["Rakuten", "https://www.rakuten.com/"],
@@ -84,34 +110,43 @@ function App() {
     [leftAttempts, setLeftAttempts] = useState(0),
     [rightAttempts, setRightAttempts] = useState(0),
     [complete, setComplete] = useState(false),
-    [sessions, setSessions] = useState(100000),
-    [baseline, setBaseline] = useState(12),
-    [lift, setLift] = useState(2),
-    [completion, setCompletion] = useState(65),
-    [commission, setCommission] = useState(4);
+    [resetEpoch, setResetEpoch] = useState(0);
   const evidenceRef = useRef<HTMLDialogElement>(null),
     sourceRef = useRef<HTMLDialogElement>(null);
   const best = recommend(cart),
     current = offers.find((o) => o.id === selected)!,
     merchantOffers = offers.filter((o) => o.merchant === cart.merchant),
-    monthly = contribution(sessions, lift, completion, commission),
     rightPrice = totals(
       cart.amount,
       rightResult === "applied" ? best?.percent : 0,
     );
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries)
-          if (e.isIntersecting)
-            setActive(Number((e.target as HTMLElement).dataset.chapter));
-      },
-      { rootMargin: "-150px 0px -50% 0px" },
-    );
-    document
-      .querySelectorAll("[data-chapter]")
-      .forEach((e) => observer.observe(e));
-    return () => observer.disconnect();
+    let frame = 0;
+    const syncChapter = () => {
+      const offset = matchMedia("(max-width:767px)").matches
+        ? 195
+        : matchMedia("(max-width:1050px)").matches
+          ? 215
+          : 180;
+      let chapter = 0;
+      document.querySelectorAll<HTMLElement>("[data-chapter]").forEach((el) => {
+        if (el.getBoundingClientRect().top <= offset)
+          chapter = Number(el.dataset.chapter);
+      });
+      setActive(chapter);
+    };
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(syncChapter);
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    syncChapter();
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
   }, []);
   useEffect(() => {
     const nav = document.querySelector("nav");
@@ -156,11 +191,7 @@ function App() {
     setLeftAttempts(0);
     setRightAttempts(0);
     setComplete(false);
-    setSessions(100000);
-    setBaseline(12);
-    setLift(2);
-    setCompletion(65);
-    setCommission(4);
+    setResetEpoch((x) => x + 1);
     setActive(0);
     window.scrollTo({
       top: 0,
@@ -231,14 +262,14 @@ function App() {
               className="primary full"
               onClick={() => {
                 setSelected(best.id);
-                jump(3);
+                jump(4);
               }}
             >
               Use {best.code} <ArrowRight size={16} />
             </button>
           )}
           <div className="subtle-line">
-            <ShieldCheck size={14} /> Supported by modeled checks. Merchant
+            <ShieldCheck size={14} /> Supported by dated checks. Merchant
             acceptance may differ.
           </div>
         </div>
@@ -275,13 +306,13 @@ function App() {
   const pair = (left: React.ReactNode, right: React.ReactNode) => (
     <Comparison view={view} left={left} right={right} />
   );
-  const strip = (i: number, hypothesis: string) => (
+  const strip = (i: number, description: string) => (
     <div className="chapter-strip">
       <h2>
-        <span>{String(i + 1).padStart(2, "0")}</span>
-        {i === 4 ? "Does this improve business?" : chapters[i]}
+        <span>{String(i).padStart(2, "0")}</span>
+        {chapters[i]}
       </h2>
-      <p>{hypothesis}</p>
+      <p>{description}</p>
     </div>
   );
   const toggle = (
@@ -305,7 +336,7 @@ function App() {
   return (
     <>
       <a className="skip" href="#chapter-0">
-        Skip to comparison
+        Skip to exploration
       </a>
       <header className="topbar">
         <a className="wordmark" href="#chapter-0">
@@ -337,7 +368,7 @@ function App() {
                 aria-current={active === i ? "step" : undefined}
                 onClick={() => jump(i)}
               >
-                <span>0{i + 1}</span>
+                <span>0{i}</span>
                 <b>{name}</b>
                 <ChevronRight size={14} />
               </button>
@@ -351,68 +382,110 @@ function App() {
         </aside>
         <main>
           <h1 className="mobile-title">Same evidence. Clearer decisions.</h1>
-          <div className="panel-headings">
-            <div className="existing">
-              <span className="heading-mark" />
-              <span className="panel-title">EXISTING SIMPLYCODES</span>
-              <span className="heading-meta">Public interface patterns</span>
-            </div>
-            <div className="proposal">
-              <span className="heading-mark" />
-              <span className="panel-title">MY PROPOSAL</span>
-              <span className="heading-meta">Cart-first decisions</span>
-            </div>
+          <div
+            className={
+              "panel-headings " +
+              (active === 0 || active === 5 ? "overview-headings" : "")
+            }
+          >
+            {active === 0 || active === 5 ? (
+              <div className="overview-heading">
+                <span className="heading-mark" />
+                <span className="panel-title">
+                  {active === 0 ? "THE DIRECTION" : "THE DISCOVERY LAYER"}
+                </span>
+                <span className="heading-meta">
+                  {active === 0
+                    ? "From familiar to autonomous"
+                    : "One evidence record. Every channel."}
+                </span>
+              </div>
+            ) : (
+              <>
+                <div className="existing">
+                  <span className="heading-mark" />
+                  <span className="panel-title">EXISTING SIMPLYCODES</span>
+                  <span className="heading-meta">
+                    Public interface patterns
+                  </span>
+                </div>
+                <div className="proposal">
+                  <span className="heading-mark" />
+                  <span className="panel-title">MY PROPOSAL</span>
+                  <span className="heading-meta">Cart-first decisions</span>
+                </div>
+              </>
+            )}
           </div>
           <div
             className="mobile-switch"
             role="group"
             aria-label="Comparison view"
           >
-            <button
-              aria-pressed={view === "existing"}
-              onClick={() => setView("existing")}
-            >
-              Existing
-            </button>
-            <button
-              aria-pressed={view === "proposal"}
-              onClick={() => setView("proposal")}
-            >
-              Proposal
-            </button>
-          </div>
-          <div className="merchant-toolbar">
-            <div className="merchant-switch" role="group" aria-label="Merchant">
-              {(["Vistaprint", "Nike"] as const).map((m) => (
+            {active === 0 || active === 5 ? (
+              <span className="mobile-context">
+                {active === 0 ? "THE DIRECTION" : "THE DISCOVERY LAYER"}
+              </span>
+            ) : (
+              <>
                 <button
-                  key={m}
-                  aria-pressed={cart.merchant === m}
-                  onClick={() => {
-                    update({
-                      merchant: m,
-                      category: m === "Nike" ? "Shoes" : "Business cards",
-                    });
-                    setSelected(m === "Nike" ? "old" : "welcome");
-                  }}
+                  aria-pressed={view === "existing"}
+                  onClick={() => setView("existing")}
                 >
-                  {m}
-                  {cart.merchant === m && <Check size={13} />}
+                  Existing
                 </button>
-              ))}
-            </div>
-            <span>
-              <ShoppingBag size={14} />
-              {money(cart.amount)} cart{" "}
-              <button className="text-button" onClick={() => jump(1)}>
-                Edit <ChevronRight size={12} />
-              </button>
-            </span>
+                <button
+                  aria-pressed={view === "proposal"}
+                  onClick={() => setView("proposal")}
+                >
+                  Proposal
+                </button>
+              </>
+            )}
           </div>
           <section id="chapter-0" data-chapter="0">
-            {strip(
-              0,
-              "Hypothesis: one supported next step beats another list to compare.",
-            )}
+            {strip(0, "Familiar actions. Greater responsibility.")}
+            <Evolution
+              key={resetEpoch}
+              cart={cart}
+              best={best}
+              onEvidence={setDrawer}
+              onExplore={() => jump(1)}
+            />
+          </section>
+          <section id="chapter-1" data-chapter="1">
+            {strip(1, "One supported next step.")}
+            <div className="merchant-toolbar">
+              <div
+                className="merchant-switch"
+                role="group"
+                aria-label="Merchant"
+              >
+                {(["Vistaprint", "Nike"] as const).map((m) => (
+                  <button
+                    key={m}
+                    aria-pressed={cart.merchant === m}
+                    onClick={() => {
+                      update({
+                        merchant: m,
+                        category: m === "Nike" ? "Shoes" : "Business cards",
+                      });
+                      setSelected(m === "Nike" ? "old" : "welcome");
+                    }}
+                  >
+                    {m}
+                    {cart.merchant === m && <Check size={13} />}
+                  </button>
+                ))}
+              </div>
+              <span>
+                <ShoppingBag size={14} />
+                {money(cart.amount)} cart{" "}
+                <button className="text-button" onClick={() => jump(2)}>
+                  Edit <ChevronRight size={12} />
+                </button>
+              </span>
+            </div>
             {pair(
               <>
                 <div className="product-heading">
@@ -433,7 +506,7 @@ function App() {
                 </div>
                 <div className="list-heading">
                   <b>Top codes</b>
-                  <span>Same illustrative offer set</span>
+                  <span>Codes & conditions</span>
                 </div>
                 {merchantOffers.slice(0, 3).map((o) => card(o))}
               </>,
@@ -452,18 +525,15 @@ function App() {
                 {recommendation(true)}
                 <button
                   className="text-button next-link"
-                  onClick={() => jump(1)}
+                  onClick={() => jump(2)}
                 >
                   Change cart conditions <ArrowRight size={14} />
                 </button>
               </>,
             )}
           </section>
-          <section id="chapter-1" data-chapter="1">
-            {strip(
-              1,
-              "Hypothesis: match the conditions before chasing the percentage.",
-            )}
+          <section id="chapter-2" data-chapter="2">
+            {strip(2, "Match the conditions before choosing a code.")}
             <div className="cart-controls">
               <label>
                 Cart amount <strong>{money(cart.amount)}</strong>
@@ -552,16 +622,13 @@ function App() {
                       cart.amount - totals(cart.amount, best?.percent).discount,
                     )}
                   </strong>
-                  <small>Before shipping · tax not modeled</small>
+                  <small>Before shipping · tax excluded</small>
                 </div>
               </>,
             )}
           </section>
-          <section id="chapter-2" data-chapter="2">
-            {strip(
-              2,
-              "Hypothesis: show the verdict first; keep the full proof one click away.",
-            )}
+          <section id="chapter-3" data-chapter="3">
+            {strip(3, "The verdict first. Full proof one click away.")}
             {pair(
               <>
                 <div className="list-heading">
@@ -658,9 +725,9 @@ function App() {
               </>,
             )}
           </section>
-          <section id="chapter-3" data-chapter="3">
+          <section id="chapter-4" data-chapter="4">
             {strip(
-              3,
+              4,
               "Compare the manual route with cart-assisted application.",
             )}
             <div className="checkout-toolbar">
@@ -819,153 +886,12 @@ function App() {
               </div>,
             )}
           </section>
-          <section id="chapter-4" data-chapter="4">
-            {strip(4, "A testable revenue hypothesis, not a measured lift.")}
-            <div className="assumptions-label">
-              <Info size={14} />
-              Scenario assumptions · not company data
-            </div>
-            <div className="scenario-controls">
-              {" "}
-              {[
-                {
-                  label: "Qualified sessions / month",
-                  value: sessions,
-                  set: setSessions,
-                  min: 1000,
-                  max: 500000,
-                  step: 1000,
-                  format: (x: number) => x.toLocaleString(),
-                },
-                {
-                  label: "Baseline redemption rate",
-                  value: baseline,
-                  set: setBaseline,
-                  min: 1,
-                  max: 50,
-                  step: 1,
-                  format: (x: number) => x + "%",
-                },
-                {
-                  label: "Redemption improvement",
-                  value: lift,
-                  set: setLift,
-                  min: 0,
-                  max: 10,
-                  step: 0.5,
-                  format: (x: number) => x + " pp",
-                },
-                {
-                  label: "Purchase completion rate",
-                  value: completion,
-                  set: setCompletion,
-                  min: 0,
-                  max: 100,
-                  step: 1,
-                  format: (x: number) => x + "%",
-                },
-                {
-                  label: "Net commission / purchase",
-                  value: commission,
-                  set: setCommission,
-                  min: 0,
-                  max: 15,
-                  step: 0.5,
-                  format: money,
-                },
-              ].map((x) => (
-                <label className="slider-label" key={x.label}>
-                  {x.label}
-                  <strong>{x.format(x.value)}</strong>
-                  <input
-                    aria-label={x.label}
-                    type="range"
-                    min={x.min}
-                    max={x.max}
-                    step={x.step}
-                    value={x.value}
-                    onChange={(e) => x.set(+e.target.value)}
-                  />
-                </label>
-              ))}
-            </div>
-            {pair(
-              <div className="baseline-scenario">
-                <span className="overline">BASELINE SCENARIO</span>
-                <h3>{baseline}% redemption</h3>
-                <strong>
-                  {money(
-                    contribution(sessions, baseline, completion, commission),
-                  )}
-                  <small>modeled net commission / month</small>
-                </strong>
-                <p>
-                  {Math.round(
-                    (((sessions * baseline) / 100) * completion) / 100,
-                  ).toLocaleString()}{" "}
-                  completed purchases / month
-                </p>
-                <details>
-                  <summary>Calculation & limits</summary>
-                  <p>
-                    Sessions × redemption improvement × completion × net
-                    commission. Baseline contextualizes the change;
-                    percentage-point lift drives the incremental estimate.
-                    Assumes attribution and no cannibalization.
-                  </p>
-                </details>
-              </div>,
-              <>
-                <div className="calculator-result">
-                  <span className="overline">
-                    INCREMENTAL CONTRIBUTION SCENARIO
-                  </span>
-                  <strong>
-                    {money(monthly)}
-                    <small>/ month</small>
-                  </strong>
-                  <p>
-                    {money(monthly * 12)} annualized · {baseline}% →{" "}
-                    {baseline + lift}% redemption
-                  </p>
-                </div>
-                <div className="experiment">
-                  <h3>The experiment</h3>
-                  <dl>
-                    <div>
-                      <dt>Control</dt>
-                      <dd>Current merchant page</dd>
-                    </div>
-                    <div>
-                      <dt>Treatment</dt>
-                      <dd>Cart-first decision interface</dd>
-                    </div>
-                    <div>
-                      <dt>Primary metric</dt>
-                      <dd>Incremental net revenue / qualified session</dd>
-                    </div>
-                  </dl>
-                  <details>
-                    <summary>Success criteria & guardrails</summary>
-                    <p>
-                      <b>Ship:</b> credible incremental revenue above zero; no
-                      material guardrail regression.
-                    </p>
-                    <p>
-                      <b>Revise:</b> clearer decisions, inconclusive revenue.
-                    </p>
-                    <p>
-                      <b>Abandon:</b> revenue harm or misleading verification.
-                    </p>
-                    <p>
-                      Guardrails: failed redemption, unverified claims,
-                      abandonment, privacy comprehension, accessibility and
-                      complaints.
-                    </p>
-                  </details>
-                </div>
-              </>,
+          <section id="chapter-5" data-chapter="5">
+            {strip(
+              5,
+              "Search, assistants and agents need the same trustworthy record.",
             )}
+            <Discovery key={resetEpoch} />
           </section>
           <div className="workspace-footer">
             <button className="text-button" onClick={reset}>
@@ -1091,24 +1017,28 @@ function App() {
         <details>
           <summary>AI-agent evidence</summary>
           <p>
-            SimplyCodes already describes machine-readable Proof Packets.
-            Product.ai’s developer page labels MCP/API access “coming soon.” No
-            live integration was tested.
+            SimplyCodes already publishes MCP tools: verify_promo_code,
+            get_merchant_codes, get_merchant_verification and
+            report_code_outcome. The published server manifest is version 0.5.1.
+            This exploration adapts its documented envelope; no authenticated
+            call or outcome report is made.
           </p>
-          <pre>
-            {JSON.stringify(
-              {
-                merchant: "nike.com",
-                source: "illustrative_fixture",
-                verification: "NO VERIFIED CODE",
-                cartEligibility: "unknown",
-                checkoutTested: false,
-                guaranteedSaving: null,
-              },
-              null,
-              2,
-            )}
-          </pre>
+          <p>
+            VERIFIED_OK, CONFIDENT_NO, UNTESTED and WITHHELD remain distinct.
+            WITHHELD means a merchant record is not materialized; transport and
+            access refusals are separate. Explorer responses use reveal links
+            rather than literal paid-tier codes. Example null timestamps are a
+            local representation of missing evidence, not a claim about full
+            server schema nullability.
+          </p>
+          <p>
+            Google examples use visible BreadcrumbList markup, not Product or
+            merchant-listing markup on a generic coupon page. Required fields
+            are checked locally against the linked guidelines; Google's external
+            Rich Results Test required sign-in and returned no validation
+            result. Crawler access and structured evidence do not guarantee
+            Google or ChatGPT inclusion.
+          </p>
         </details>
         <details>
           <summary>Design system & implementation</summary>

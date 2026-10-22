@@ -1,25 +1,16 @@
 # Validation
 
-Local verification completed October 21, 2026 (Pacific), Node 22.19.0.
+Verified October 21, 2026 (Pacific), Node 22.19.0.
 
-- TypeScript + Vite production build: passed.
-- Vitest: 14 tests passed, including eligibility, missing information, merchant/category/minimum restrictions, sale exclusion, checkout failure, money rounding and contribution arithmetic.
-- Playwright: 6 tests passed. Full interactions at 1440, 1280, 768 and 390px; keyboard/reduced motion; automated accessibility at desktop/mobile.
-- Zero detected page errors and no horizontal page overflow in the tested chapters.
-- axe WCAG A/AA scan: zero detected violations in tested default desktop/mobile states after fixing contrast and receipt definition-list semantics. This automated scan is not a complete accessibility certification.
-- Browser screenshots of desktop/mobile hero and cart comparison inspected for layout.
-- Merchant switch updates both views; unknown student eligibility prompts a question; cart changes reset checkout; rejection counts no discount; final payable review creates no payment or transaction; restart resets inputs and permissions.
-- All requested source pages read through the research browser; no real merchant checkout tested. Links remain external navigation rather than claims that their offers currently work.
+- TypeScript + Vite production build passed.
+- Vitest: 19 tests passed. The original 14 shopping/price/contribution tests remain unchanged; five additional tests cover MCP verdict separation, eligibility, safe actions and Google breadcrumb required fields.
+- Playwright: eight tests passed. Four complete flows at 1440, 1280, 768 and 390px, keyboard/reduced motion, both phone comparisons, and automated accessibility across all three discovery tabs.
+- Every chapter navigation target (00–05), all five evolution stages, local approval/undo, merchant switching, shared cart conditions, evidence dialog Escape/focus return, privacy controls, both checkout routes, forced rejection/retry, final payable review and Restart were checked.
+- Discovery checks include default no-code answers, positive/negative/untested/unavailable records, student eligibility and approval gates, optional evidence, and breadcrumb validation. Unverified evidence cannot authorize a coupon action; a direct merchant link remains available.
+- No detected JavaScript page errors or document overflow at the required widths. axe WCAG A/AA scans detected no violations in tested desktop/mobile views and discovery tabs. This is not a complete accessibility certification.
+- Captured all six chapters and all five evolution stages at every required width, plus full-page, evidence, AI-answer and approved-agent states. Visually inspected each chapter at all four widths; selected captures and fixes are in [visual review](visual-review/README.md).
+- Fixed native focus scrolling on the phone comparison switch by giving it a fixed position and preserving its layout space. A throttled section-top tracker keeps the active chapter correct through tall panels and changing tab heights.
+- Local Google breadcrumb checks pass against the official requirements. Google's external Rich Results Test returned a sign-in error; no external pass is claimed. See [research](RESEARCH.md).
+- No authenticated MCP request, live merchant checkout, ranking test, payment or transaction was performed. Examples are local, source-attributed and explicitly illustrative.
 
-GitHub Actions repeats unit tests, Playwright checks and the production build before publishing. Production URL is verified separately after a successful deployment.
-
-## Focused five-chapter revision
-
-- TypeScript + Vite build passed; unchanged eligibility/arithmetic suite: 14 passing tests.
-- Revised Playwright suite: 6 passing tests across 1440, 1280, 768 and 390px.
-- Checked merchant switching, shared eligibility, missing-information handling, both manual and assisted checkout routes, forced rejection and retry, final payable amount, privacy preferences, calculator, Sources/agent disclosure and full restart.
-- Native evidence dialog opens, traps keyboard interaction, closes with Escape, and restores focus to the opener.
-- Automated WCAG A/AA scans: zero detected violations on desktop and both phone views; reduced-motion and keyboard chapter navigation passed.
-- No detected page errors or horizontal page overflow in the tested chapters. Persistent heading labels checked in viewport on desktop/tablet.
-- Captured first-viewport, full-page and all five chapter screenshots at every required width, plus phone Existing and evidence-drawer captures. Reviewed composition and iterated on alignment, readable controls and mobile access to calculator inputs.
-- Selected before/after captures and decisions: [visual review](visual-review/README.md).
+GitHub Actions repeats unit tests, Playwright and the production build before publishing to the existing GitHub Pages project. Live deployment is checked separately after publishing.

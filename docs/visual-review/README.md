@@ -1,47 +1,35 @@
-# Focused revision: visual review
+# Evolution and discovery: visual review
 
-Reviewed the real Chromium-rendered application at 1440, 1280, 768 and 390px. All five chapters were captured individually; full-page and first-viewport captures were also generated at every width. The phone Existing view and evidence drawer were checked separately. Full test captures live in ignored `test-results/`; selected evidence is retained here.
+Reviewed six chapters at 1440, 1280, 768 and 390px using real Chromium screenshots. Existing and Proposal retain the dark scoped palettes and two-column comparison; desktop retains its navigation rail. The new opening and finale span the product columns. At 768px compact navigation preserves both panes; phones retain a view switch for chapters 01–04 and a contextual label for 00/05.
 
-## Before → after
+All five evolution stages and the three discovery channels were exercised. Full-page, individual chapter, evidence drawer, AI-answer and approved-agent captures are generated in ignored `test-results/`. Selected captures are retained below.
 
-| Previous experience                                            | Revised experience                                                                  |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Introductory hero occupies the first screen                    | The first screen opens directly on both shopping interfaces                         |
-| Nine narrative chapters                                        | Five focused shopping and business tasks                                            |
-| Pale editorial shell, dark existing cards, pale proposal cards | Consistent dark shell with separately scoped Existing and Proposal palettes         |
-| Repeated Today / Proposal labels                               | One sticky pair of headings                                                         |
-| Repeated fixture explanations and long introductions           | One global disclosure, one friction hypothesis per chapter, details on demand       |
-| Agent chapter and visible component library interrupt shopping | Agent research, tokens and implementation notes live in Sources and repository docs |
-| Manual and assisted checkout rows have uneven vertical rhythm  | Actions, status messages, subtotals and payable amounts align                       |
-| Repeated explanatory comparison frames                         | Full-width equal product columns with a 2px green divider                           |
+## Findings and fixes
 
-The underlying `src/engine.ts` and its 14 unit tests are unchanged. The same fixtures drive both panes. No live merchant outcome, measured user effort, conversion uplift or live MCP capability is claimed.
+- Reindexed navigation, chapter targets and cart/checkout jumps from 00 to 05.
+- Removed calculator UI, state and CSS while preserving the pure shared contribution function.
+- Preserved the existing typography, contrast, green actions, equal panes, evidence dialogs and checkout alignment.
+- Added horizontal evolution tabs with automatic rail scrolling, keyboard traversal and compact examples. The approval example can be undone and resets when the cart changes.
+- Used actual breadcrumb properties and visible page content instead of a fake Google ranking screenshot. AI answers cite a dated source and preserve no-code outcomes.
+- Kept the MCP evidence inspector optional, the four verdicts separate, and eligibility ahead of approval. No paid-tier code is invented or exposed.
+- Fixed chapter tracking in tall, dynamically changing sections; the active navigation now remains correct within the agent experience.
+- Fixed a native phone focus-scroll jump by making the comparison switch fixed-position with reserved layout space.
+- Checked all required widths for clipped text and document overflow. Automated accessibility found no violations in the tested states.
 
-## Changes found through visual and browser review
+## Previous and current opening
 
-- Made card text and metadata consistent across dark surfaces; removed gradients, shadows and the serif display hero.
-- Kept the three desktop columns at 1440 and 1280px. At 768px a compact navigator preserves side-by-side panes. At 390px an accessible switch shows one pane.
-- Wrapped sticky heading labels explicitly and constrained their row height so they remain visible while scrolling.
-- Fixed exact accessible names on cart selects and checked native dialog focus restoration.
-- Moved calculator assumptions above the comparison. They stay available in either phone view instead of being hidden in Existing.
-- Kept the active chapter visible in the horizontally scrollable compact navigator.
-- Aligned both checkout routes without asserting measured time savings; attempt counts reflect actual local clicks.
-- Moved Restart into the shared footer so it is available on phones and tablets.
+![Previous shopping-first opening](before-desktop.png)
 
-## First viewport
+![Current desktop evolution](after-desktop.png)
 
-Previous, 1440px wide:
+![Current phone evolution](after-phone.png)
 
-![Previous first viewport](before-desktop.png)
+## AI search and agent interaction
 
-Revised, 1440px wide:
+![Concise, dated AI answer](ai-search.png)
 
-![Revised first viewport](after-desktop.png)
+![Verified agent example with explicit local approval](agent.png)
 
-Revised phone, 390px wide:
+## All six chapters
 
-![Revised phone viewport](after-phone.png)
-
-## Complete desktop composition
-
-![All five revised chapters](after-full-page.png)
+![Full desktop composition](after-full-page.png)

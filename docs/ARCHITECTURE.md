@@ -2,7 +2,7 @@
 
 React 19 + TypeScript + Vite. Browser-local state, no backend or credentials. Lucide provides bundled icons; fonts are self-hosted. Typed fixtures and pure functions own all eligibility, discount and contribution logic. React presentation never recalculates competing arithmetic.
 
-Native dialogs provide focus containment and return focus. IntersectionObserver synchronizes chapter progress. Native details expose evidence. Five synchronized chapter rows share a persistent two-pane header and one cart. The responsive comparison hides one view only at phone widths; state is retained while switching. Existing, Proposal and shell tokens have separate namespaces. Reduced-motion preferences remove smooth scroll and nonessential animation.
+Native dialogs provide focus containment and return focus. A requestAnimationFrame-throttled scroll handler synchronizes chapter progress. Native details expose evidence. Four synchronized shopping rows share a persistent two-pane header and one cart, between full-width Evolution and Discovery chapters. The responsive comparison hides one view only at phone widths; state is retained while switching. Existing, Proposal and shell tokens have separate namespaces. Reduced-motion preferences remove smooth scroll and nonessential animation.
 
 ## Hosting inspection
 
@@ -12,4 +12,4 @@ A new `simplycodes-exploration` repository and its own Pages workflow can publis
 
 ## Deliberate limitations
 
-This is an interactive product argument, not a coupon service. There is no current offer feed, merchant checkout connection, extension install, live MCP connection or real attribution pipeline. The published developer page labels MCP/API access coming soon. Shipping thresholds, evidence fixtures and cart rules demonstrate states and are not merchant terms.
+This is an interactive product argument, not a coupon service. There is no current offer feed, merchant checkout connection, extension install, live MCP connection or real attribution pipeline. SimplyCodes already publishes MCP verification tools and the v0.5.1 manifest; local typed examples adapt its documented envelope. No authenticated server response is claimed. Shipping thresholds, evidence fixtures and cart rules demonstrate states and are not merchant terms.

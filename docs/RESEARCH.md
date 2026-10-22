@@ -21,7 +21,24 @@ Home computed body: DM Sans. Merchant body: Figtree. Merchant page screenshot sh
 
 ### Agent / MCP prior work and availability
 
-https://simplycodes.com/how-it-works already describes machine-readable Proof Packets for agents. https://product.ai/developers/ was reached through Product.ai’s “For Agents” navigation. It labels MCP and REST API **coming soon**, with waitlists, and presents a human-readable card beside structured JSON. This is public prior work and a direction to build on. We did not establish a live SimplyCodes MCP endpoint, connect to a server, or verify an API response. A Google search for SimplyCodes MCP encountered an anti-bot challenge. The brief’s reference to an existing MCP integration must not be turned into an unsupported live-availability claim. The agent chapter uses a locally constructed illustrative result.
+SimplyCodes publishes a dedicated MCP server at https://mcp.simplycodes.com/ and documentation at https://developers.simplycodes.com/docs. Both were read successfully during this revision. The public manifest https://mcp.simplycodes.com/server.json returned version 0.5.1 and four tools: `verify_promo_code`, `get_merchant_codes`, `get_merchant_verification`, and `report_code_outcome`. The endpoint is Streamable HTTP at https://mcp.simplycodes.com/mcp. No authenticated tool execution or outcome reporting was performed.
+
+The documented verdicts are `VERIFIED_OK`, `CONFIDENT_NO`, `UNTESTED`, and `WITHHELD`. Negative evidence is scoped to observed checkout channels; WITHHELD means the merchant resolves but its verification record is not materialized. Access, rate-limit and retrieval refusals are separate. Explorer responses supply reveal links rather than literal paid-tier codes. Comparison tools such as `search_deals` are reserved, not registered, and are not invented here.
+
+The published example envelope provides merchant, tier, serving mode, verdict, observed channels, capsule, offers, caveats and metadata (verification time, freshness, TTL, attribution and methodology). `src/evidence.ts` is a typed **local adaptation**, not generated server types. The linked GitHub implementation was unavailable publicly (404); no complete wire-response JSON Schema was retrieved. Null timestamps, sample platform origin, channel identifiers and fixture values are local examples, not claims about certified schema nullability or real Nike offers. Positive examples require student eligibility; no test is converted into a guarantee.
+
+Correction to earlier research: Product.ai’s separate developer waitlist page was insufficient evidence about SimplyCodes MCP availability. The earlier inference that no SimplyCodes endpoint had been established is superseded by the dedicated published server and manifest above.
+
+### Search and shopping discovery: primary-source review
+
+- [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide): useful titles/descriptions, crawlable content and links, canonicalization, and access to page resources. Titles/snippets may be rewritten; no ranking promise.
+- [Google BreadcrumbList](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb): at least two ListItems, ordered positions, names and URLs (last URL may be omitted). The example includes both URLs and matches its visible Stores → Nike coupons trail. Local tests check these required fields and order; no coupon markup is injected into this personal exploration’s document head.
+- [Product snippets](https://developers.google.com/search/docs/appearance/structured-data/product-snippet) apply to a specific product/variants, not a generic merchant coupon list. [Merchant listings](https://developers.google.com/search/docs/appearance/structured-data/merchant-listing) require a page where the shopper can buy products. This aggregator example uses BreadcrumbList, not Product or Offer markup. Eligibility and required-field rules were checked against these documents. No guarantee of a rich result.
+- [OpenAI crawler documentation](https://developers.openai.com/api/docs/bots): OAI-SearchBot concerns search; allow robots access and published IP ranges/WAF access. GPTBot training controls are independent. ChatGPT-User is a user-initiated fetcher, not the automatic search crawler. The live SimplyCodes robots.txt was readable and did not explicitly block OAI-SearchBot; no crawler-IP or WAF audit was conducted.
+- [OpenAI web search](https://developers.openai.com/api/docs/guides/tools-web-search): answers can include source citations; the prototype presents a concise attributed answer, not an actual ChatGPT response.
+- [OpenAI commerce start guide](https://developers.openai.com/commerce/guides/get-started): approved-partner product feeds are a separate route. Readable coupon markup does not establish a commerce partnership or feed integration. No SimplyCodes partnership is asserted.
+- [Snap Specs](https://www.specs.com/): current official Lenses/Specs reference. The familiarity-before-responsibility progression is the author’s product analogy, not a measured causal claim or an official commerce roadmap.
+
 
 ## Adjacent experiences
 
@@ -41,7 +58,7 @@ The proposal extends existing decision-oriented capabilities across merchant dis
 
 The Vistaprint and Nike interactive code strings, percentage values, dates, tests, pass counts, shipping threshold and outcomes are deterministic **invented fixtures**, not the observed live offers above. Fixture “VERIFIED” means supported by fixture evidence, not an actual merchant checkout. Student status is deliberately unknown until answered. Merchant eligibility does not guarantee final acceptance.
 
-All experiment inputs are assumptions. No conversion, commission uplift or company business result is measured here. Public company-scale statistics are deliberately omitted from the calculator. Revenue remains outside coupon ranking.
+The revenue calculator has been removed. No conversion, commission uplift or company business result is measured here. The engine contribution helper remains unused by the UI. Revenue remains outside coupon ranking.
 
 No analytics, accounts, trackers, remote font requests, payment requests or actual extension permissions. Toggles are local state specimens. Production permission and retention language would require policy and legal review.
 
@@ -50,3 +67,7 @@ No analytics, accounts, trackers, remote font requests, payment requests or actu
 Revisited the Vistaprint merchant page during the revision on October 21, 2026 (Pacific). After an initial Cloudflare challenge, the page rendered successfully. Computed font remained Figtree and the primary action color was rgb(3,255,136). The public top pick still displayed 15% off, Health 95%, last used information and expandable verification activity. This supports dark neutral cards, green actions and evidence affordances; it does not establish a new checkout observation.
 
 The revised comparison uses the same illustrative offer set and does not claim its exact order is the live ranking. Per-card cart checks are local overlays to make the comparison inspectable. The manual checkout route is labeled as such and explicitly credits the existing extension’s assisted application. Session attempt counts are actual local clicks, not measured time savings or claims about real shopper effort.
+
+### External validation limitation
+
+Google’s Rich Results Test was opened and the sample BreadcrumbList plus its matching visible trail was submitted through its code editor. The tool returned “Something went wrong / Log in and try again.” No external validation result was obtained. Required-field and order checks pass locally against the Search Central requirements; this is not a Google certification or ranking result.
