@@ -77,8 +77,11 @@ function NoCodeRecovery({
         {showPreview && (
           <div className="alert-preview" role="status">
             <b>Alert concept · Kith</b>
-            <p>When a newly verified Kith offer appears, notify an opted-in shopper. No alert is active and no email is collected here.</p>
-            <a href="https://simplycodes.com/blog" target="_blank" rel="noreferrer">Explore SimplyCodes email updates ↗</a>
+            <p>A merchant-specific notification design for future verified Kith offers. SimplyCodes already describes push alerts in its mobile app; this prototype has no active subscription or email collection.</p>
+            <div className="recovery-channel-links">
+              <a href="https://simplycodes.com/extension" target="_blank" rel="noreferrer">Get the extension ↗</a>
+              <a href="https://simplycodes.com/blog" target="_blank" rel="noreferrer">Explore email updates ↗</a>
+            </div>
           </div>
         )}
       </div>
