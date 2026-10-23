@@ -56,14 +56,35 @@ export const evidence = {
       "Review Kith community-code history and non-code alternatives. See what is verified, what is historical, and where to check next.",
   },
 } as const;
+export const alternativeFashionOffers = [
+  {
+    merchant: "END.",
+    category: "Designer / streetwear",
+    offer: "15% off storewide",
+    health: 100,
+    source: "https://simplycodes.com/store/endclothing.com",
+  },
+  {
+    merchant: "Fashion Nova",
+    category: "Fashion / apparel",
+    offer: "30% off storewide",
+    health: 100,
+    source: "https://simplycodes.com/store/fashionnova.com",
+  },
+] as const;
+// These are dated public offer observations, not live recommendations or
+// guarantees. A 100% Health Score is not a 100% success probability.
+export const alternativesObserved = "October 23, 2026";
 export const observationDate = "October 22, 2026";
 export type Interaction = {
   proof: boolean;
   eligibility: boolean;
   customer: string;
+  alertPreview: boolean;
 };
 export const initialInteraction: Interaction = {
   proof: false,
   eligibility: false,
   customer: "unknown",
+  alertPreview: false,
 };
