@@ -1797,3 +1797,25 @@ footer p {
     transition: none !important;
   }
 }
+
+/* Below-the-offer recovery path on merchant pages with no verified codes. */
+.no-code-recovery { margin-top: 19px; padding: 17px 0 5px; border-top: 1px solid #344c3b; }
+.recovery-heading h3 { font-size: 16px; line-height: 1.25; margin: 0 0 5px; color: #f0f7f0; }
+.recovery-heading p, .recovery-freshness { font-size: 10px; line-height: 1.5; color: #afc7b6; margin: 0 0 11px; }
+.recovery-stores { display: grid; gap: 8px; }
+.recovery-store { text-decoration: none; display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: 12px; border-radius: 9px; background: #1c2b21; border: 1px solid #45624b; color: #e9f7ed; }
+.recovery-store:hover { border-color: #a2eeb4; background: #243d2b; }
+.recovery-store > span, .recovery-offer { display: grid; gap: 4px; }
+.recovery-store strong { font-size: 13px; }
+.recovery-store small { display: block; font-size: 9px; color: #b8d6c0; }
+.recovery-offer { text-align: right; }
+.recovery-offer b { font-size: 11px; }
+.recovery-freshness { margin: 11px 0 15px; }
+.recovery-alert { background: #202b22; padding: 14px; border-radius: 9px; border: 1px solid #526351; }
+.recovery-alert > strong { font-size: 13px; color: #eff9ef; }
+.recovery-alert p { font-size: 11px; line-height: 1.5; margin: 6px 0 10px; }
+.recovery-alert-button { border: 1px solid #95cda1; background: transparent; color: #d4f5db; padding: 9px 12px; border-radius: 6px; font-size: 11px; width: 100%; }
+.recovery-alert-button:hover { background: #33513a; }
+.alert-preview { border-top: 1px solid #526351; margin-top: 12px; padding-top: 12px; }
+.alert-preview b { font-size: 11px; }
+.alert-preview a { font-size: 11px; color: #c3eccb; }
