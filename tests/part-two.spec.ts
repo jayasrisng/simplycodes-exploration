@@ -75,6 +75,16 @@ for (const width of [1440, 1280, 768, 390])
             expect(b!.y + b!.height).toBeLessThanOrEqual(844);
           }
         }
+        if (merchant === "Kith") {
+          await expect(phone.getByText("Still looking for something similar?")).toBeVisible();
+          await expect(phone.getByRole("link", { name: /END\./ })).toHaveAttribute("href", "https://simplycodes.com/store/endclothing.com");
+          await expect(phone.getByRole("link", { name: /Fashion Nova/ })).toHaveAttribute("href", "https://simplycodes.com/store/fashionnova.com");
+          const alert = phone.getByRole("button", { name: "Preview code alerts" });
+          await alert.click();
+          await expect(phone.getByText(/no active subscription or email collection/i)).toBeVisible();
+          await expect(phone.getByRole("link", { name: /Get the extension/ })).toHaveAttribute("href", "https://simplycodes.com/extension");
+          await phone.getByRole("button", { name: "Hide alert preview" }).click();
+        }
         await phone.screenshot({
           path: `test-results/gallery-${l}-${merchant}-${width}.png`,
         });
