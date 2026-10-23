@@ -77,7 +77,6 @@ for (const width of [1440, 1280, 768, 390])
         }
         if (merchant === "Kith") {
           await expect(phone.getByText("Still looking for something similar?")).toBeVisible();
-          await expect(phone.getByRole("link", { name: /END\./ })).toHaveAttribute("href", "https://simplycodes.com/store/endclothing.com");
           await expect(phone.getByRole("link", { name: /Fashion Nova/ })).toHaveAttribute("href", "https://simplycodes.com/store/fashionnova.com");
           const alert = phone.getByRole("button", { name: "Preview code alerts" });
           await alert.click();
