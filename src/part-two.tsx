@@ -55,7 +55,6 @@ function Phone({ merchant }: { merchant: "Vistaprint" | "Kith" }) {
           <br />
           promo codes & coupons
         </h2>
-        <p className="snapshot">Source snapshot · {observed}</p>
         <section
           className={`offer ${positive ? "positive" : ""}`}
           data-top-card
@@ -72,8 +71,7 @@ function Phone({ merchant }: { merchant: "Vistaprint" | "Kith" }) {
               </h3>
               <p className="offer-name">Storewide at Vistaprint</p>
               <p className="offer-note">
-                A supported place to start. Your cart’s eligibility is still
-                unknown.
+                Check the terms for your cart before using this offer.
               </p>
               <div className="signals">
                 <div>
@@ -82,16 +80,13 @@ function Phone({ merchant }: { merchant: "Vistaprint" | "Kith" }) {
                 </div>
                 <div>
                   <strong>3h ago</strong>
-                  <span>Last used at snapshot</span>
+                  <span>Last used · Oct 22</span>
                 </div>
                 <div>
                   <strong>16</strong>
                   <span>Uses on Oct 22</span>
                 </div>
               </div>
-              <p className="signal-date">
-                All signals recorded Oct 22, 2026 · not live
-              </p>
               <a
                 className="primary"
                 data-primary
@@ -101,23 +96,15 @@ function Phone({ merchant }: { merchant: "Vistaprint" | "Kith" }) {
               >
                 Check the SimplyCodes source <span>↗</span>
               </a>
-              <p className="action-note">
-                Source handoff only. No code is revealed or copied here.
-              </p>
             </>
           ) : (
             <>
-              <h3 className="no-code-title">
-                A clear answer.
-                <br />
-                No code to promise.
-              </h3>
+              <h3 className="no-code-title">No verified code right now.</h3>
               <p className="offer-note">
-                SimplyCodes lists two community codes, but neither is currently
-                verified in this snapshot.
+                Two community codes are listed. Neither is currently verified.
               </p>
               <div className="honest-note">
-                Past activity ≠ a working code today.
+                Past use is not current verification.
               </div>
               <a
                 className="primary"
@@ -128,10 +115,6 @@ function Phone({ merchant }: { merchant: "Vistaprint" | "Kith" }) {
               >
                 Explore non-code alternatives <span>↗</span>
               </a>
-              <p className="action-note">
-                Opens SimplyCodes’ alternatives. Check terms; no saving is
-                promised.
-              </p>
             </>
           )}
         </section>
@@ -215,11 +198,6 @@ function Phone({ merchant }: { merchant: "Vistaprint" | "Kith" }) {
             <Source href={kith}>Review the two community codes</Source>
           </div>
         )}
-        <p className="phone-foot">
-          Independent interface concept.
-          <br />
-          Evidence is dated; merchant acceptance is not tested.
-        </p>
       </div>
     </article>
   );
@@ -275,13 +253,13 @@ const opportunities = [
   },
   {
     name: "Reddit",
-    title: "Participate before promoting.",
+    title: "Turn coupon questions into useful answers.",
     existing:
-      "Shopping communities already discuss codes; SimplyCodes publishes a guide to finding codes on Reddit.",
+      "People question whether coupon sites are trustworthy and how SimplyCodes works. SimplyCodes already has a Reddit coupon guide.",
     change:
-      "Disclose affiliation, follow each community’s rules, answer verification questions, and turn reported friction into product fixes.",
+      "Answer real questions transparently, route failed-code reports into product feedback, and consider an official moderated community if there is sustained demand.",
     measure:
-      "Questions resolved, recurring friction themes, and moderator removals. No posting-volume target.",
+      "Questions resolved, useful referrals, recurring issues fixed, and moderation quality—not posts published.",
     url: "https://simplycodes.com/blog/coupon-codes-reddit",
     source: "SimplyCodes Reddit guide",
   },
@@ -291,23 +269,18 @@ function Beyond() {
   const [surface, setSurface] = useState("Website");
   const [cadence, setCadence] = useState("Daily");
   const [missing, setMissing] = useState(false);
+  const [redditAction, setRedditAction] = useState("Listen");
   const item = opportunities[active];
   return (
     <section className="beyond" id="beyond">
       <details className="optional-strategy">
         <summary>
-          Optional · Beyond the landing page <span>5 opportunities</span>
+          Beyond the mobile screens <span>Search · AI · Community</span>
         </summary>
         <div className="section-heading">
           <div>
-            <span className="eyebrow">02 / BEYOND THE LANDING PAGE</span>
-            <h2>Same evidence. More ways to help.</h2>
+            <h2>More ways to use verified evidence.</h2>
           </div>
-          <p>
-            Extend the value of verification,
-            <br />
-            without reinventing the engine.
-          </p>
         </div>
         <div className="opportunity-layout">
           <div
@@ -514,19 +487,29 @@ function Beyond() {
             )}
             {active === 4 && (
               <div className="specimen">
-                <span className="eyebrow">EXAMPLE REPLY · NOT POSTED</span>
-                <p>
-                  “I work with SimplyCodes. A recent code use isn’t necessarily
-                  a successful checkout. Could you share the restriction or
-                  error, without personal or order details? Here is how to read
-                  the verification history.”
+                <span className="eyebrow">COMMUNITY PLAYBOOK</span>
+                <div className="segments" aria-label="Reddit community ideas">
+                  {["Listen", "Answer", "Host"].map((step) => (
+                    <button
+                      key={step}
+                      aria-pressed={redditAction === step}
+                      onClick={() => setRedditAction(step)}
+                    >
+                      {step}
+                    </button>
+                  ))}
+                </div>
+                <p className="record-output" aria-live="polite">
+                  {redditAction === "Listen"
+                    ? "Track questions about failed codes, verification and whether SimplyCodes is trustworthy. Surface patterns for the product team."
+                    : redditAction === "Answer"
+                      ? "Reply as an identified team member where subreddit rules permit. Explain checks, limitations and next steps; do not mass-post links."
+                      : "If shoppers want a dedicated space, pilot an official moderated community: code-help threads, verified updates, transparent rules and a route for reported failures."}
                 </p>
-                <small>
-                  Human review and community permission first. No automated
-                  promotional posts, fake accounts, or new subreddit without
-                  demand. SimplyCodes’ account activity was not audited; no
-                  absence is implied.
-                </small>
+                <Source href="https://www.reddit.com/r/Affiliatemarketing/comments/1h5edbl/can_someone_please_explain_how_companies_like/">
+                  A real question about how SimplyCodes works
+                </Source>
+                <small>Community replies require human review and subreddit permission. Search visibility is not guaranteed.</small>
               </div>
             )}
             <p className="measure">
@@ -548,7 +531,7 @@ function App() {
       </a>
       <header className="page-nav">
         <a href="../" className="wordmark">
-          simplycodes<span> / exploration</span>
+          simplycodes<span> / 02</span>
         </a>
         <nav aria-label="Exploration">
           <a href="../">Part One ↗</a>
@@ -557,23 +540,15 @@ function App() {
       </header>
       <main>
         <section className="intro">
-          <span className="eyebrow">01 / FROM EVIDENCE TO ACTION</span>
+          <span className="eyebrow">SIMPLYCODES / MOBILE</span>
           <h1>
-            Verification earns trust.
+            Find the code.
             <br />
-            <span>A clear next step creates value.</span>
+            <span>Skip the guessing.</span>
           </h1>
           <div className="intro-bottom">
-            <p>
-              One supported answer. One obvious action.
-              <br />
-              The evidence is one tap away.
-            </p>
-            <span className="edition">
-              INDEPENDENT PRODUCT EXPLORATION
-              <br />
-              OBSERVED OCT 22, 2026 · NOT A LIVE FEED
-            </span>
+            <p>Verified offer or no verified code. Both have a clear next step.</p>
+            <a className="intro-link" href="#screens">Explore the screens ↓</a>
           </div>
         </section>
         <section
@@ -614,39 +589,15 @@ function App() {
             ))}
           </div>
         </section>
-        <section className="decision">
-          <div>
-            <span className="eyebrow">THE CHANGE IS PRIORITIZATION</span>
-            <h2>
-              Less deciding. <br />
-              More doing.
-            </h2>
-          </div>
-          <div>
-            <h3>Already in SimplyCodes</h3>
-            <p>
-              Health Scores, recent use, verification history, restrictions, and
-              code actions.
-            </p>
-            <Source href={vista}>See the existing experience</Source>
-          </div>
-          <div>
-            <h3>This iteration</h3>
-            <p>
-              Lead with one supported answer. Put the action in reach. Expand
-              evidence on demand. Offer a useful path when verification is
-              absent.
-            </p>
-          </div>
+        <section className="design-diff" aria-label="Design decisions">
+          <p><strong>Keep</strong> Health Scores, usage history, verification evidence.</p>
+          <p><strong>Change</strong> One clear action first. Details on demand.</p>
         </section>
         <section className="experiment">
           <div>
-            <span className="eyebrow">ONE MEASURABLE BET</span>
-            <h2>Does clarity lead to action?</h2>
-            <p>
-              Making the best-supported offer immediately actionable increases
-              saves per 100 eligible visits.
-            </p>
+            <span className="eyebrow">THE EXPERIMENT</span>
+            <h2>Saves per 100 visits</h2>
+            <p>Would a clearer action lead to more useful shopper decisions?</p>
           </div>
           <div className="metric">
             <strong>
@@ -703,7 +654,7 @@ function App() {
         </section>
         <Beyond />
         <footer>
-          <span>Independent product exploration · No affiliation implied.</span>
+          <span>Unofficial interface concept. Not affiliated with SimplyCodes.</span>
           <a href="../">Return to Part One ↗</a>
           <details>
             <summary>Sources & limits</summary>
