@@ -2,6 +2,8 @@ import { type ReactNode } from "react";
 import {
   evidence,
   observationDate,
+  alternativeFashionOffers,
+  alternativesObserved,
   type Merchant,
   type Layout,
   type Interaction,
@@ -40,6 +42,47 @@ export function PhoneFrame({
       </div>
       {children}
     </article>
+  );
+}
+function NoCodeRecovery({
+  showPreview,
+  onToggle,
+}: {
+  showPreview: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <section className="no-code-recovery" aria-label="Other ways to save">
+      <div className="recovery-heading">
+        <h3>Still looking for something similar?</h3>
+        <p>Other fashion stores with recorded verified offers</p>
+      </div>
+      <div className="recovery-stores">
+        {alternativeFashionOffers.map((item) => (
+          <a key={item.merchant} href={item.source} target="_blank" rel="noreferrer" className="recovery-store">
+            <span><strong>{item.merchant}</strong><small>{item.category}</small></span>
+            <span className="recovery-offer"><b>{item.offer}</b><small>100% recorded Health ↗</small></span>
+          </a>
+        ))}
+      </div>
+      <p className="recovery-freshness">
+        Seen {alternativesObserved}. Health Scores are not guarantees; check the source for current terms.
+      </p>
+      <div className="recovery-alert">
+        <strong>No Kith code today? Stay in the loop.</strong>
+        <p>Browse available savings now, or explore how future code alerts could work.</p>
+        <button type="button" onClick={onToggle} aria-expanded={showPreview} className="recovery-alert-button">
+          {showPreview ? "Hide alert preview" : "Preview code alerts"}
+        </button>
+        {showPreview && (
+          <div className="alert-preview" role="status">
+            <b>Alert concept · Kith</b>
+            <p>When a newly verified Kith offer appears, notify an opted-in shopper. No alert is active and no email is collected here.</p>
+            <a href="https://simplycodes.com/blog" target="_blank" rel="noreferrer">Explore SimplyCodes email updates ↗</a>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 export function MerchantPhone({
@@ -228,9 +271,9 @@ export function MerchantPhone({
                   </>
                 ) : (
                   <>
-                    Skip the
+                    No verified
                     <br />
-                    code guessing.
+                    code today.
                   </>
                 )}
               </h3>
@@ -322,6 +365,12 @@ export function MerchantPhone({
           )}
         </section>
         {proof}
+        {!record.verified && (
+          <NoCodeRecovery
+            showPreview={interaction.alertPreview}
+            onToggle={() => onInteraction({ ...interaction, alertPreview: !interaction.alertPreview })}
+          />
+        )}
         <details className="eligibility" open={interaction.eligibility}>
           <summary
             onClick={(e) => {
