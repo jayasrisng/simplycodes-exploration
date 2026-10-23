@@ -6,7 +6,7 @@ for (const width of [1440, 1280, 768, 390])
     await page.goto("/2/");
     await page.reload();
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Verification earns trust",
+      "Find the code.",
     );
     await page.screenshot({
       path: `test-results/part-two-default-${width}.png`,
@@ -67,7 +67,7 @@ for (const width of [1440, 1280, 768, 390])
         expect(
           await phone.evaluate((el) => getComputedStyle(el).overflowY),
         ).toBe("visible");
-        const end = phone.locator(".phone-foot");
+        const end = phone.locator(".phone-body > :last-child");
         await end.scrollIntoViewIfNeeded();
         await expect(end).toBeInViewport();
         expect(await phone.evaluate((el) => el.scrollTop)).toBe(0);
@@ -91,9 +91,7 @@ for (const width of [1440, 1280, 768, 390])
         .analyze();
       expect(phoneScan.violations).toEqual([]);
       if (merchant === "Vistaprint") {
-        await expect(phone.locator(".signal-date")).toHaveText(
-          "All signals recorded Oct 22, 2026 · not live",
-        );
+        await expect(phone.getByText("Last used · Oct 22")).toBeVisible();
         await expect(phone.locator("[data-primary]")).toContainText(
           "Check the SimplyCodes source",
         );
@@ -128,6 +126,12 @@ for (const width of [1440, 1280, 768, 390])
           "do not claim",
         );
         await page.getByText("Where llms.txt fits", { exact: true }).click();
+      }
+      if (name === "Reddit") {
+        for (const step of ["Listen", "Answer", "Host"]) {
+          await page.getByRole("button", { name: step, exact: true }).click();
+          await expect(page.getByRole("button", { name: step, exact: true })).toHaveAttribute("aria-pressed", "true");
+        }
       }
       if (name === "Deal digest") {
         for (const c of ["Every 3 days", "Weekly", "Daily"]) {
