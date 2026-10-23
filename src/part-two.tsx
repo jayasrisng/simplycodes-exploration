@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "@fontsource/dm-sans/400.css";
 import "@fontsource/dm-sans/500.css";
@@ -17,6 +17,7 @@ import {
 import { MerchantPhone, PhoneFrame, Handoff, External } from "./PartTwoPhone";
 import { Experiments } from "./PartTwoExperiments";
 import { Beyond } from "./PartTwoSupporting";
+const DesignLab = lazy(() => import("./design-lab/DesignLab"));
 type Step = "search" | "results" | "merchant" | "handoff";
 const steps: Step[] = ["search", "results", "merchant", "handoff"];
 function readStep(): Step {
@@ -26,8 +27,14 @@ function readStep(): Step {
 function App() {
   const [layout, setLayout] = useState<Layout>("B");
   const [merchant, setMerchant] = useState<Merchant>("Vistaprint");
-  const [mode, setMode] = useState<"gallery" | "journey">(
-    location.hash.startsWith("#journey") ? "journey" : "gallery",
+  const [mode, setMode] = useState<"gallery" | "journey" | "lab" | "test">(
+    location.hash.startsWith("#lab-test/")
+      ? "test"
+      : location.hash.startsWith("#lab")
+        ? "lab"
+        : location.hash.startsWith("#journey")
+          ? "journey"
+          : "gallery",
   );
   const [compare, setCompare] = useState(false);
   const [pair, setPair] = useState<[Layout, Layout]>(["A", "B"]);
@@ -42,7 +49,15 @@ function App() {
   const firstRadio = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const onPop = () => {
-      setMode(location.hash.startsWith("#journey") ? "journey" : "gallery");
+      setMode(
+        location.hash.startsWith("#lab-test/")
+          ? "test"
+          : location.hash.startsWith("#lab")
+            ? "lab"
+            : location.hash.startsWith("#journey")
+              ? "journey"
+              : "gallery",
+      );
       setStep(readStep());
     };
     window.addEventListener("popstate", onPop);
@@ -70,12 +85,16 @@ function App() {
     if (history.state?.journey) history.back();
     else navigate(steps[Math.max(0, steps.indexOf(step) - 1)]);
   }
-  function setView(next: "gallery" | "journey") {
+  function setView(next: "gallery" | "journey" | "lab") {
     setMode(next);
     history.pushState(
       null,
       "",
-      next === "gallery" ? "#gallery" : `#journey/${step}`,
+      next === "lab"
+        ? "#lab"
+        : next === "gallery"
+          ? "#gallery"
+          : `#journey/${step}`,
     );
   }
   function update(value: Interaction) {
@@ -108,6 +127,31 @@ function App() {
       }
     />
   );
+  if (mode === "lab" || mode === "test")
+    return (
+      <>
+        <header className="page-nav">
+          <a href="../" className="wordmark">
+            simplycodes<span> / studio</span>
+          </a>
+          <h1>Design Lab</h1>
+          <nav aria-label="Project">
+            <a href="../">Part One ↗</a>
+          </nav>
+        </header>
+        <main>
+          <Suspense fallback={<p role="status">Loading Design Lab…</p>}>
+            <DesignLab
+              key={mode === "test" ? location.hash : "editor"}
+              initialLayout={layout}
+              initialMerchant={merchant}
+              participantHash={mode === "test" ? location.hash : undefined}
+              onExit={() => setView("gallery")}
+            />
+          </Suspense>
+        </main>
+      </>
+    );
   return (
     <>
       <a className="skip" href="#playground">
@@ -206,6 +250,9 @@ function App() {
                   onClick={() => setView("journey")}
                 >
                   Search journey
+                </button>
+                <button aria-pressed={false} onClick={() => setView("lab")}>
+                  Design Lab
                 </button>
               </div>
               {mode === "gallery" ? (
