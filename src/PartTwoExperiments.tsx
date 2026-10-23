@@ -162,10 +162,10 @@ export function Experiments({ onAction }: { onAction: (m: Merchant) => void }) {
         })}
       </div>
       <p className="experiment-footnote">
-        Production metric: count each qualifying visit once after a reveal,
-        copy, or store click-out. Organic search traffic is a guardrail. These
-        local handoffs record no saves. A/B/C are broad concepts; the pairs
-        above isolate a proposed change, not measured winners.
+        Primary hypothesis: +10% relative saves per 100 visits. Proposed SEO
+        guardrail: investigate and consider rollback after a greater than 5%
+        relative decline in organic clicks versus matched pages over two weeks,
+        accounting for normal variation.
       </p>
     </section>
   );
