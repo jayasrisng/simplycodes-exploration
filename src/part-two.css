@@ -94,7 +94,7 @@ main {
   margin: auto;
 }
 .intro {
-  padding: 60px 0 38px;
+  padding: 38px 0 30px;
 }
 .eyebrow {
   font-size: 10px;
@@ -120,13 +120,15 @@ main {
   font-size: 15px;
   margin: 0;
 }
-.edition {
-  font-size: 9px;
-  line-height: 1.9;
-  letter-spacing: 1.3px;
-  color: #a3aea6;
-  text-align: right;
+.intro-link {
+  font-size: 12px;
+  color: #adf5c6;
+  text-decoration: none;
+  border-bottom: 1px solid #5c916e;
+  padding-bottom: 3px;
+  white-space: nowrap;
 }
+.intro-link:hover { color: #fff; }
 .screens {
   background: #191d1a;
   border: 1px solid #303831;
@@ -417,28 +419,25 @@ main {
 .mobile-switch {
   display: none;
 }
-.decision {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 45px;
-  padding: 48px 0;
+.design-diff {
+  display: flex;
+  gap: 26px;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 25px 0 6px;
   border-bottom: 1px solid #333c35;
 }
-.decision h2 {
-  font-size: 29px;
-  letter-spacing: -1px;
-  line-height: 1.15;
-  margin: 15px 0 0;
+.design-diff p {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0 0 16px;
 }
-.decision h3 {
-  font-size: 14px;
-  margin: 4px 0 13px;
-}
-.decision p {
-  font-size: 13px;
-}
-.decision a {
+.design-diff strong {
+  color: #cff0d8;
+  margin-right: 10px;
   font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
 }
 .experiment {
   display: grid;
@@ -668,13 +667,7 @@ footer p {
   main {
     margin: 0 20px;
   }
-  .edition {
-    max-width: 180px;
   }
-  .decision {
-    gap: 25px;
-  }
-}
 @media (max-width: 860px) {
   .phone-grid {
     grid-template-columns: 390px;
@@ -688,16 +681,7 @@ footer p {
     gap: 10px;
     margin-bottom: 25px;
   }
-  .decision {
-    grid-template-columns: 1fr 1fr;
-  }
-  .decision > div:first-child {
-    grid-column: 1/-1;
-  }
-  .decision h2 br {
-    display: none;
-  }
-  .experiment {
+        .experiment {
     grid-template-columns: 1fr 0.5fr;
   }
   .metric-definition {
@@ -734,17 +718,14 @@ footer p {
     letter-spacing: -1.4px;
   }
   .intro-bottom {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
+  .design-diff { flex-direction: column; gap: 4px; padding-top: 18px; }
   .intro-bottom p {
     font-size: 14px;
-  }
-  .edition {
-    display: block;
-    text-align: left;
-    max-width: none;
-    margin-top: 22px;
-    font-size: 8px;
   }
   .screens {
     margin: 0 -18px;
@@ -775,17 +756,7 @@ footer p {
   .fold {
     font-size: 8px;
   }
-  .decision {
-    padding: 32px 0;
-    gap: 22px;
-  }
-  .decision h2 {
-    font-size: 25px;
-  }
-  .decision p {
-    font-size: 12px;
-  }
-  .experiment {
+        .experiment {
     gap: 15px;
     padding: 32px 0;
   }
