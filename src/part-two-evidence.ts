@@ -58,13 +58,6 @@ export const evidence = {
 } as const;
 export const alternativeFashionOffers = [
   {
-    merchant: "END.",
-    category: "Designer / streetwear",
-    offer: "15% off storewide",
-    health: 100,
-    source: "https://simplycodes.com/store/endclothing.com",
-  },
-  {
     merchant: "Fashion Nova",
     category: "Fashion / apparel",
     offer: "30% off storewide",
