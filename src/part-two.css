@@ -848,3 +848,64 @@ footer p {
     scroll-behavior: auto;
   }
 }
+
+/* Keep source context beside the action and optional strategy secondary. */
+.signal-date {
+  font-size: 10px;
+  margin: -7px 0 13px;
+  color: #b1c1b6;
+}
+.secondary-store {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  padding: 14px 0 0;
+}
+.optional-strategy > summary {
+  font-size: 14px;
+  color: #b9c7bd;
+  padding: 8px 0;
+}
+.optional-strategy > summary span {
+  font-size: 11px;
+  color: #aab7af;
+  margin-left: 14px;
+}
+.optional-strategy[open] > summary {
+  margin-bottom: 24px;
+}
+.beyond {
+  padding: 24px 0;
+}
+.beyond .section-heading h2 {
+  font-size: 23px;
+}
+@media (max-width: 860px) {
+  .phone {
+    height: auto;
+    min-height: 844px;
+    overflow: visible;
+  }
+  .phone-body {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .crumb {
+    margin-bottom: 16px;
+  }
+  .merchant-icon {
+    margin-bottom: 10px;
+  }
+  .snapshot {
+    margin-bottom: 16px;
+  }
+  .phone-foot {
+    margin-top: 10px;
+  }
+  .history {
+    padding-top: 14px;
+  }
+  .fold {
+    display: none;
+  }
+}

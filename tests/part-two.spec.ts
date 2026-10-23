@@ -8,6 +8,10 @@ for (const width of [1440, 1280, 768, 390])
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "Verification earns trust",
     );
+    await page.screenshot({
+      path: `test-results/part-two-default-${width}.png`,
+      fullPage: true,
+    });
     for (const merchant of ["Vistaprint", "Kith"]) {
       if (width <= 860)
         await page
@@ -25,7 +29,8 @@ for (const width of [1440, 1280, 768, 390])
       const box = await phone.boundingBox();
       expect(box).not.toBeNull();
       expect(box!.width).toBe(390);
-      expect(box!.height).toBe(844);
+      if (width > 860) expect(box!.height).toBe(844);
+      else expect(box!.height).toBeGreaterThanOrEqual(844);
       for (const selector of [
         "[data-merchant-headline]",
         "[data-top-card]",
@@ -58,15 +63,40 @@ for (const width of [1440, 1280, 768, 390])
       await disclosure.focus();
       await page.keyboard.press("Enter");
       await expect(phone.locator(".evidence")).toHaveAttribute("open", "");
+      if (width <= 860) {
+        expect(
+          await phone.evaluate((el) => getComputedStyle(el).overflowY),
+        ).toBe("visible");
+        const end = phone.locator(".phone-foot");
+        await end.scrollIntoViewIfNeeded();
+        await expect(end).toBeInViewport();
+        expect(await phone.evaluate((el) => el.scrollTop)).toBe(0);
+        await disclosure.focus();
+      }
       await page.keyboard.press("Enter");
       await expect(phone.locator(".evidence")).not.toHaveAttribute("open", "");
       await expect(phone.locator("[data-primary]")).toHaveAttribute(
         "href",
         merchant === "Vistaprint"
-          ? "https://simplycodes.com/store/vistaprint.com"
-          : "https://kith.com/",
+          ? "https://simplycodes.com/store/vistaprint.com#verified-promos-section"
+          : "https://simplycodes.com/store/kith.com#best-deal-section",
       );
+      if (merchant === "Kith")
+        await expect(
+          phone.getByRole("link", { name: "Visit Kith’s website" }),
+        ).toHaveAttribute("href", "https://kith.com/");
+      const phoneScan = await new AxeBuilder({ page })
+        .include(".phone-column.selected, .phone-column")
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze();
+      expect(phoneScan.violations).toEqual([]);
       if (merchant === "Vistaprint") {
+        await expect(phone.locator(".signal-date")).toHaveText(
+          "All signals recorded Oct 22, 2026 · not live",
+        );
+        await expect(phone.locator("[data-primary]")).toContainText(
+          "Check the SimplyCodes source",
+        );
         await phone.locator(".personalize summary").click();
         for (const v of ["new", "returning", "unknown"]) {
           await phone.locator("select").selectOption(v);
@@ -74,6 +104,9 @@ for (const width of [1440, 1280, 768, 390])
         }
       }
     }
+    await expect(page.getByRole("tab", { name: /SEO/ })).not.toBeVisible();
+    await page.locator(".optional-strategy > summary").focus();
+    await page.keyboard.press("Enter");
     for (const name of [
       "SEO",
       "AI discovery",
